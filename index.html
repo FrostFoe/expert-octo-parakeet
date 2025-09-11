@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>পরীক্ষা নিয়ন্ত্রক - Be Examiner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              hind: ["Hind Siliguri", "sans-serif"],
+            },
+            backgroundImage: {
+              "gradient-primary":
+                "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+              "gradient-secondary":
+                "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+              "gradient-accent":
+                "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
+            },
+            backdropBlur: {
+              xs: "2px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom styles for effects not available in Tailwind */
+      .glass-morphism {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .glass-morphism-strong {
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+      }
+      .text-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .radio-custom::before {
+        content: attr(value);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 12px;
+        color: #667eea;
+        font-weight: bold;
+        pointer-events: none;
+      }
+      .radio-custom:checked {
+        background-color: #667eea;
+        border-color: #667eea;
+      }
+      .radio-custom:checked::before {
+        color: white;
+      }
+      .checkbox-custom::after {
+        content: "\f00c";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 12px;
+      }
+      input[type="checkbox"]:checked + span {
+        background-color: #667eea;
+        border-color: #667eea;
+      }
+      input[type="checkbox"]:checked + span::after {
+        content: "\f00c";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 12px;
+      }
+      .timer-icon::before {
+        content: "\f017";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        margin-right: 8px;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .loading-spinner::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0 -10px;
+        border: 2px solid transparent;
+        border-top: 2px solid #667eea;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      /* Enhanced responsive styles */
+      /* Mobile-first responsive design */
+      @media (max-width: 640px) {
+        body {
+          padding: 0.5rem;
+        }
+
+        /* Floating summary button - better mobile positioning */
+        #floating-summary {
+          bottom: 1rem;
+          right: 1rem;
+          left: auto;
+          width: 3rem;
+          height: 3rem;
+        }
+
+        #floating-summary i {
+          font-size: 1rem;
+        }
+
+        /* Timer positioning for mobile */
+        #timer {
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          margin-bottom: 1rem;
+          padding: 0.75rem;
+          font-size: 1rem;
+          border-radius: 0.75rem;
+        }
+
+        /* Form inputs - better mobile spacing */
+        .mb-4 {
+          margin-bottom: 1rem;
+        }
+
+        .mb-6 {
+          margin-bottom: 1.5rem;
+        }
+
+        /* Button spacing */
+        .mr-4 {
+          margin-right: 0.5rem;
+        }
+
+        /* MCQ layout improvements */
+        .mcq-container .flex {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .mcq-container .flex-1 {
+          width: 100%;
+          margin-bottom: 0.75rem;
+        }
+
+        .mcq-container .flex-wrap {
+          justify-content: center;
+          gap: 0.5rem;
+        }
+
+        /* Radio button sizing for touch */
+        .radio-custom {
+          width: 2rem;
+          height: 2rem;
+          margin: 0.25rem;
+        }
+
+        /* Result grid - better mobile layout */
+        .grid-cols-6 {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.75rem;
+        }
+
+        .grid-cols-6 > div:nth-child(n+5) {
+          grid-column: span 2;
+        }
+
+        /* Test details grid */
+        .grid-cols-4 {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.75rem;
+        }
+
+        /* Button layouts */
+        .text-center .inline-flex {
+          display: block;
+          width: 100%;
+          margin-bottom: 0.5rem;
+        }
+
+        .text-center .inline-flex:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      @media (min-width: 641px) and (max-width: 768px) {
+        /* Tablet styles */
+        #floating-summary {
+          bottom: 1.5rem;
+          left: 1.5rem;
+        }
+
+        .grid-cols-6 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-cols-4 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 769px) and (max-width: 1024px) {
+        /* Small desktop styles */
+        .grid-cols-6 {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .grid-cols-6 > div:last-child {
+          grid-column: span 2;
+        }
+      }
+
+      /* Large screen optimizations */
+      @media (min-width: 1025px) {
+        .max-w-\[900px\] {
+          max-width: 1000px;
+        }
+
+        .grid-cols-6 {
+          grid-template-columns: repeat(6, 1fr);
+        }
+      }
+
+      /* Print styles */
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+        #result-section, #result-section * {
+          visibility: visible;
+        }
+        #result-section {
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+        .no-print {
+          display: none !important;
+        }
+      }
+
+      /* Accessibility improvements */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* Focus styles for better accessibility */
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible {
+        outline: 2px solid #667eea;
+        outline-offset: 2px;
+      }
+
+      /* Touch-friendly interactions */
+      @media (hover: none) and (pointer: coarse) {
+        .radio-custom {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+
+        button {
+          min-height: 44px;
+          padding: 0.75rem 1rem;
+        }
+
+        #floating-summary {
+          width: 4rem;
+          height: 4rem;
+        }
+      }
+
+      /* High contrast mode support */
+      @media (prefers-contrast: high) {
+        .glass-morphism {
+          backdrop-filter: none;
+          background: rgba(255, 255, 255, 0.95);
+          border: 1px solid #000;
+        }
+
+        .text-gradient {
+          background: none;
+          color: #000;
+          -webkit-text-fill-color: #000;
+        }
+      }
+
+      /* Reduced motion support */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      /* Better text wrapping */
+      .break-words {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+
+      /* Improved scrolling on mobile */
+      @media (max-width: 640px) {
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          -webkit-overflow-scrolling: touch;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="font-hind m-0 p-2 md:p-5 bg-gradient-primary min-h-screen text-gray-800 text-base leading-relaxed antialiased subpixel-antialiased"
+  >
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50">
+      Skip to main content
+    </a>
+
+    <main id="main-content">
+      <section
+        id="configuration-section"
+        class="mx-auto p-4 sm:p-6 md:p-12 max-w-[600px] bg-white/95 glass-morphism-strong rounded-xl md:rounded-3xl shadow-xl border border-white/30 mb-4 md:mb-8"
+        role="main"
+        aria-labelledby="config-heading"
+      >
+        <h1
+          id="config-heading"
+          class="text-center text-gray-800 text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 md:mb-8 text-gradient font-hind"
+        >
+          <i class="fas fa-cog text-gradient mr-2.5" aria-hidden="true"></i> পরীক্ষার সেটিংস
+        </h1>
+        <form id="test-form" role="form" aria-label="Test configuration form">
+          <div class="mb-4 sm:mb-6">
+            <label
+              for="test-name"
+              class="block mb-2 font-medium text-gray-700 text-sm sm:text-base font-hind"
+              ><i class="fas fa-file-signature text-blue-600 mr-2 w-4" aria-hidden="true"></i>
+              পরীক্ষার নাম:</label
+            >
+            <div class="relative">
+              <input
+                type="text"
+                id="test-name"
+                name="test-name"
+                required
+                placeholder="পরীক্ষার নাম লিখুন"
+                class="w-full px-3 py-2 sm:px-4 sm:py-3 border-2 border-white/30 rounded-xl bg-white/80 glass-morphism text-sm sm:text-base transition-all duration-300 focus:outline-none focus:border-blue-600 focus:shadow-lg focus:shadow-blue-600/30 focus:-translate-y-0.5 font-hind"
+                aria-describedby="test-name-help"
+              />
+              <div id="test-name-help" class="sr-only">Enter the name for your exam</div>
+            </div>
+          </div>
+          <div class="mb-4 sm:mb-6">
+            <label
+              for="mcq-number"
+              class="block mb-2 font-medium text-gray-700 text-sm sm:text-base font-hind"
+              ><i class="fas fa-list-ol text-blue-600 mr-2 w-4" aria-hidden="true"></i> MCQ প্রশ্নের
+              সংখ্যা:</label
+            >
+            <div class="relative">
+              <input
+                type="number"
+                id="mcq-number"
+                name="mcq-number"
+                required
+                placeholder="প্রশ্নের সংখ্যা লিখুন"
+                min="1"
+                max="100"
+                class="w-full px-3 py-2 sm:px-4 sm:py-3 border-2 border-white/30 rounded-xl bg-white/80 glass-morphism text-sm sm:text-base transition-all duration-300 focus:outline-none focus:border-blue-600 focus:shadow-lg focus:shadow-blue-600/30 focus:-translate-y-0.5 font-hind"
+                aria-describedby="mcq-number-help"
+              />
+              <div id="mcq-number-help" class="sr-only">Enter the number of MCQ questions (1-100)</div>
+            </div>
+          </div>
+          <div class="mb-4 sm:mb-6">
+            <label
+              for="time-limit"
+              class="block mb-2 font-medium text-gray-700 text-sm sm:text-base font-hind"
+              ><i class="fas fa-clock text-blue-600 mr-2 w-4" aria-hidden="true"></i> সময়সীমা
+              (মিনিটে):</label
+            >
+            <div class="relative">
+              <input
+                type="number"
+                id="time-limit"
+                name="time-limit"
+                required
+                placeholder="সময়সীমা লিখুন"
+                min="1"
+                max="300"
+                class="w-full px-3 py-2 sm:px-4 sm:py-3 border-2 border-white/30 rounded-xl bg-white/80 glass-morphism text-sm sm:text-base transition-all duration-300 focus:outline-none focus:border-blue-600 focus:shadow-lg focus:shadow-blue-600/30 focus:-translate-y-0.5 font-hind"
+                aria-describedby="time-limit-help"
+              />
+              <div id="time-limit-help" class="sr-only">Enter the time limit in minutes (1-300)</div>
+            </div>
+          </div>
+          <div class="mb-4 sm:mb-6">
+            <label
+              for="marks-per-question"
+              class="block mb-2 font-medium text-gray-700 text-sm sm:text-base font-hind"
+              ><i class="fas fa-star text-blue-600 mr-2 w-4" aria-hidden="true"></i> প্রশ্ন প্রতি নাম্বার:</label
+            >
+            <div class="relative">
+              <input
+                type="number"
+                id="marks-per-question"
+                name="marks-per-question"
+                required
+                placeholder="প্রশ্ন প্রতি নাম্বার লিখুন"
+                min="0"
+                step="0.5"
+                value="1"
+                class="w-full px-3 py-2 sm:px-4 sm:py-3 border-2 border-white/30 rounded-xl bg-white/80 glass-morphism text-sm sm:text-base transition-all duration-300 focus:outline-none focus:border-blue-600 focus:shadow-lg focus:shadow-blue-600/30 focus:-translate-y-0.5 font-hind"
+                aria-describedby="marks-per-question-help"
+              />
+              <div id="marks-per-question-help" class="sr-only">Enter marks per question (minimum 0)</div>
+            </div>
+          </div>
+          <div class="mb-4 sm:mb-6">
+            <label
+              for="negative-marking-value"
+              class="block mb-2 font-medium text-gray-700 text-sm sm:text-base font-hind"
+              ><i class="fas fa-minus-circle text-blue-600 mr-2 w-4" aria-hidden="true"></i> নেগেটিভ মার্কিং মান (প্রশ্ন প্রতি):</label
+            >
+            <div class="relative">
+              <input
+                type="number"
+                id="negative-marking-value"
+                name="negative-marking-value"
+                placeholder="নেগেটিভ মার্কিং মান লিখুন (0 = বন্ধ)"
+                min="0"
+                step="0.25"
+                value="0.25"
+                class="w-full px-3 py-2 sm:px-4 sm:py-3 border-2 border-white/30 rounded-xl bg-white/80 glass-morphism text-sm sm:text-base transition-all duration-300 focus:outline-none focus:border-blue-600 focus:shadow-lg focus:shadow-blue-600/30 focus:-translate-y-0.5 font-hind"
+                aria-describedby="negative-marking-help"
+              />
+              <div id="negative-marking-help" class="sr-only">Enter negative marking value per question (0 to disable)</div>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="block w-full py-2.5 sm:py-3.5 px-4 text-sm sm:text-base font-bold border-none rounded-xl bg-gradient-primary text-white cursor-pointer text-center transition-all duration-300 shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-600/40 hover:-translate-y-1 active:translate-y-0 active:shadow-lg active:shadow-blue-600/30 mt-4 touch-manipulation font-hind"
+            aria-label="Start the exam"
+          >
+            <i class="fas fa-play mr-2" aria-hidden="true"></i> পরীক্ষা শুরু করুন
+          </button>
+        </form>
+        <div class="text-center mt-4">
+          <button id="view-history" class="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-blue-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 font-hind text-sm sm:text-lg" aria-label="View exam history">
+            <i class="fas fa-history mr-2" aria-hidden="true"></i> ইতিহাস দেখুন
+          </button>
+        </div>
+      </section>
+
+      <section
+        id="test-section"
+        class="p-4 sm:p-6 md:p-10 mx-auto mb-4 md:mb-8 max-w-[900px] bg-white/95 glass-morphism rounded-xl md:rounded-2xl shadow-2xl border border-white/20 hidden"
+        role="main"
+        aria-labelledby="test-heading"
+      >
+        <div
+          id="floating-summary"
+          class="fixed bottom-4 right-4 sm:bottom-5 sm:left-5 w-12 h-12 sm:w-16 sm:h-16 bg-gradient-primary border-4 border-white rounded-full shadow-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 z-50"
+          role="button"
+          aria-label="Toggle question summary"
+          tabindex="0"
+        >
+          <i class="fas fa-list-check text-lg sm:text-xl text-white" aria-hidden="true"></i>
+        </div>
+
+        <div
+          class="timer sticky top-0 md:top-5 bg-gradient-accent p-3 sm:p-3 md:p-3 text-center text-base sm:text-lg md:text-2xl font-bold text-white z-[1000] rounded-xl shadow-xl flex items-center justify-center tracking-wider mb-4 md:mb-6"
+          id="timer"
+          role="timer"
+          aria-live="polite"
+          aria-label="Remaining time"
+        ></div>
+        <div
+          class="test-details bg-gradient-secondary p-4 sm:p-6 rounded-xl mb-4 sm:mb-6 shadow-2xl"
+          id="test-details"
+        ></div>
+        <div class="mcq-container space-y-3 sm:space-y-4 md:space-y-5" id="mcq-container" role="radiogroup" aria-label="Multiple choice questions"></div>
+        <div class="mt-6 sm:mt-8">
+          <button
+            id="submit-test"
+            class="w-full sm:w-auto bg-gradient-accent text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold shadow-xl shadow-pink-600/30 transition-all duration-300 hover:shadow-2xl hover:shadow-pink-600/40 hover:-translate-y-1 font-hind text-base sm:text-lg"
+            aria-label="Submit the test"
+          >
+            <i class="fas fa-paper-plane mr-2" aria-hidden="true"></i> পরীক্ষা জমা দিন
+          </button>
+        </div>
+      </section>
+
+      <section
+        id="correct-answer-section"
+        class="p-4 sm:p-6 md:p-10 mx-auto mb-4 md:mb-8 max-w-[900px] bg-white/95 glass-morphism rounded-xl md:rounded-2xl shadow-2xl border border-white/20 hidden"
+        role="main"
+        aria-labelledby="correct-answer-heading"
+      >
+        <h2
+          id="correct-answer-heading"
+          class="text-gray-800 font-semibold mb-4 sm:mb-6 font-hind text-lg sm:text-xl"
+        >
+          <i class="fas fa-check-circle text-blue-600 mr-2" aria-hidden="true"></i> সঠিক উত্তর
+          নির্বাচন করুন
+        </h2>
+        <div id="correct-answer-container" role="radiogroup" aria-label="Correct answer selection"></div>
+        <p
+          id="warning-message"
+          class="bg-red-50 border-2 border-red-300 rounded-xl p-3 sm:p-4 my-4 text-red-700 font-semibold text-center font-hind text-sm sm:text-base hidden"
+          role="alert"
+          aria-live="polite"
+        >
+          সবগুলো প্রশ্নের সঠিক উত্তর সিলেক্ট করুন। অন্যথায় সাবমিট করতে পারবেন না।
+        </p>
+
+        <button
+          id="submit-correct-answers"
+          class="bg-gradient-accent text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold shadow-xl shadow-pink-600/30 transition-all duration-300 hover:shadow-2xl hover:shadow-pink-600/40 hover:-translate-y-1 font-hind text-base sm:text-lg"
+          disabled
+          aria-label="Submit correct answers"
+        >
+          <i class="fas fa-check-double mr-2" aria-hidden="true"></i> সঠিক উত্তর জমা দিন
+        </button>
+      </section>
+
+      <section
+        id="result-section"
+        class="p-4 sm:p-6 md:p-10 mx-auto mb-4 md:mb-8 max-w-[900px] bg-white/95 glass-morphism rounded-xl md:rounded-2xl shadow-2xl border border-white/20 hidden"
+        role="main"
+        aria-labelledby="result-heading"
+      >
+        <h2
+          id="result-heading"
+          class="text-gray-800 font-semibold mb-4 sm:mb-6 font-hind text-lg sm:text-xl md:text-2xl"
+        >
+          <i class="fas fa-chart-bar text-blue-600 mr-2" aria-hidden="true"></i> পরীক্ষার ফলাফল
+        </h2>
+        <div id="result-container" role="region" aria-label="Exam results"></div>
+        <div class="mt-6 sm:mt-8 space-y-3 sm:space-y-0 sm:flex sm:flex-wrap sm:justify-center sm:gap-4 no-print">
+          <button id="save-test" class="w-full sm:w-auto sm:flex-1 sm:max-w-xs inline-flex items-center justify-center px-4 sm:px-6 py-3 sm:py-3 bg-green-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 font-hind text-sm sm:text-base" aria-label="Save test results">
+              <i class="fas fa-save mr-2" aria-hidden="true"></i> পরীক্ষা সেভ করুন
+          </button>
+          <button id="print-result" class="w-full sm:w-auto sm:flex-1 sm:max-w-xs inline-flex items-center justify-center px-4 sm:px-6 py-3 sm:py-3 bg-gradient-primary text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 font-hind text-sm sm:text-base" aria-label="Print results">
+              <i class="fas fa-print mr-2" aria-hidden="true"></i> প্রিন্ট করুন
+          </button>
+          <button id="restart-btn" class="w-full sm:w-auto sm:flex-1 sm:max-w-xs inline-flex items-center justify-center px-4 sm:px-6 py-3 sm:py-3 bg-gradient-primary text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 font-hind text-sm sm:text-base" aria-label="Start new exam">
+              <i class="fas fa-redo mr-2" aria-hidden="true"></i> নতুন পরীক্ষা শুরু করুন
+          </button>
+        </div>
+      </section>
+
+      <section
+        id="history-section"
+        class="p-4 sm:p-6 md:p-10 mx-auto mb-4 md:mb-8 max-w-[900px] bg-white/95 glass-morphism rounded-xl md:rounded-2xl shadow-2xl border border-white/20 hidden"
+        role="main"
+        aria-labelledby="history-heading"
+      >
+        <h2
+          id="history-heading"
+          class="text-gray-800 font-semibold mb-4 sm:mb-6 font-hind text-lg sm:text-xl"
+        >
+          <i class="fas fa-history text-blue-600 mr-2" aria-hidden="true"></i> পরীক্ষার ইতিহাস
+        </h2>
+        <div class="text-center mb-4">
+          <button id="back-to-home" class="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-gray-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 font-hind text-sm sm:text-lg" aria-label="Return to home">
+            <i class="fas fa-home mr-2" aria-hidden="true"></i> হোমে ফিরে যান
+          </button>
+        </div>
+        <div id="history-container" role="region" aria-label="Exam history"></div>
+      </section>
+    </main>
+
+    <!-- Consolidated JavaScript -->
+    <script>
+      // Application state management
+      class ExamApp {
+        constructor() {
+          this.testData = {
+            name: '',
+            mcqNumber: 0,
+            timeLimit: 0,
+            marksPerQuestion: 1,
+            negativeMarkingValue: 0.25
+          };
+          this.timer = null;
+          this.retakeData = null;
+          this.summaryVisible = false;
+          this.eventListeners = new Map();
+
+          this.init();
+        }
+
+        init() {
+          this.setupEventListeners();
+          this.showSection('configuration-section');
+        }
+
+        // Utility methods
+        showSection(sectionId) {
+          const sections = ['configuration-section', 'test-section', 'correct-answer-section', 'result-section', 'history-section'];
+          sections.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+              element.classList.add('hidden');
+              element.setAttribute('aria-hidden', 'true');
+            }
+          });
+
+          const targetSection = document.getElementById(sectionId);
+          if (targetSection) {
+            targetSection.classList.remove('hidden');
+            targetSection.setAttribute('aria-hidden', 'false');
+          }
+        }
+
+        // Error handling for localStorage
+        safeLocalStorageGet(key, defaultValue = null) {
+          try {
+            const item = localStorage.getItem(key);
+            return item ? JSON.parse(item) : defaultValue;
+          } catch (error) {
+            console.error('Error reading from localStorage:', error);
+            return defaultValue;
+          }
+        }
+
+        safeLocalStorageSet(key, value) {
+          try {
+            localStorage.setItem(key, JSON.stringify(value));
+            return true;
+          } catch (error) {
+            console.error('Error writing to localStorage:', error);
+            alert('Failed to save data. Storage might be full.');
+            return false;
+          }
+        }
+
+        // Event listener management
+        addEventListener(elementId, event, handler) {
+          const element = document.getElementById(elementId);
+          if (element) {
+            element.addEventListener(event, handler);
+            if (!this.eventListeners.has(elementId)) {
+              this.eventListeners.set(elementId, []);
+            }
+            this.eventListeners.get(elementId).push({ event, handler });
+          }
+        }
+
+        removeEventListeners(elementId) {
+          const listeners = this.eventListeners.get(elementId);
+          if (listeners) {
+            const element = document.getElementById(elementId);
+            if (element) {
+              listeners.forEach(({ event, handler }) => {
+                element.removeEventListener(event, handler);
+              });
+            }
+            this.eventListeners.delete(elementId);
+          }
+        }
+
+        // Form handling
+        handleFormSubmit(event) {
+          event.preventDefault();
+
+          try {
+            this.testData.name = document.getElementById('test-name').value.trim();
+            this.testData.mcqNumber = parseInt(document.getElementById('mcq-number').value);
+            this.testData.timeLimit = parseInt(document.getElementById('time-limit').value);
+            this.testData.marksPerQuestion = parseFloat(document.getElementById('marks-per-question').value);
+            this.testData.negativeMarkingValue = parseFloat(document.getElementById('negative-marking-value').value);
+
+            // Validation
+            if (!this.testData.name) {
+              alert('পরীক্ষার নাম প্রয়োজন।');
+              return;
+            }
+            if (this.testData.mcqNumber < 1 || this.testData.mcqNumber > 100) {
+              alert('প্রশ্নের সংখ্যা 1 থেকে 100 এর মধ্যে হতে হবে।');
+              return;
+            }
+
+            this.showSection('test-section');
+            this.generateTestInterface();
+            this.startTimer();
+          } catch (error) {
+            console.error('Error in form submission:', error);
+            alert('ফর্ম জমা দেওয়ার সময় একটি ত্রুটি ঘটেছে।');
+          }
+        }
+
+        // Test interface generation
+        generateTestInterface() {
+          this.generateTestDetails();
+          this.generateMCQs();
+          this.setupFloatingSummary();
+        }
+
+        generateTestDetails() {
+          const testDetails = document.getElementById('test-details');
+          if (!testDetails) return;
+
+          testDetails.innerHTML = `
+            <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 font-hind text-center">
+              <i class="fas fa-clipboard-list text-blue-600 mr-2" aria-hidden="true"></i>
+              ${this.escapeHtml(this.testData.name)}
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-center">
+              <div class="bg-white/80 p-2 sm:p-3 rounded-lg shadow-md">
+                <i class="fas fa-list text-blue-600 text-lg sm:text-2xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
+                <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">মোট প্রশ্ন</div>
+                <div class="text-base sm:text-lg font-bold text-blue-600">${this.testData.mcqNumber}</div>
+              </div>
+              <div class="bg-white/80 p-2 sm:p-3 rounded-lg shadow-md">
+                <i class="fas fa-hourglass-half text-blue-600 text-lg sm:text-2xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
+                <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">সময়সীমা</div>
+                <div class="text-base sm:text-lg font-bold text-blue-600">${this.testData.timeLimit} মিনিট</div>
+              </div>
+              <div class="bg-white/80 p-2 sm:p-3 rounded-lg shadow-md">
+                <i class="fas fa-star text-blue-600 text-lg sm:text-2xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
+                <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">প্রশ্ন প্রতি নাম্বার</div>
+                <div class="text-base sm:text-lg font-bold text-blue-600">${this.testData.marksPerQuestion}</div>
+              </div>
+              <div class="bg-white/80 p-2 sm:p-3 rounded-lg shadow-md">
+                <i class="fas fa-exclamation-triangle text-blue-600 text-lg sm:text-2xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
+                <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">নেগেটিভ মার্কিং</div>
+                <div class="text-base sm:text-lg font-bold text-blue-600">${this.testData.negativeMarkingValue > 0 ? this.testData.negativeMarkingValue : 'বন্ধ'}</div>
+              </div>
+            </div>
+          `;
+        }
+
+        generateMCQs() {
+          const mcqContainer = document.getElementById('mcq-container');
+          if (!mcqContainer) return;
+
+          mcqContainer.innerHTML = '';
+
+          for (let i = 1; i <= this.testData.mcqNumber; i++) {
+            const mcqDiv = document.createElement('div');
+            mcqDiv.className = 'flex flex-col md:flex-row md:items-center justify-between mb-3 sm:mb-4 md:mb-5 gap-2 sm:gap-2.5 md:gap-4 p-3 sm:p-4 md:p-5 border border-white/30 rounded-xl bg-white/80 glass-morphism shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5';
+            mcqDiv.setAttribute('id', `mcq-${i}`);
+
+            const checkedA = this.retakeData && this.retakeData.userAns[i-1] === 'A' ? 'checked' : '';
+            const checkedB = this.retakeData && this.retakeData.userAns[i-1] === 'B' ? 'checked' : '';
+            const checkedC = this.retakeData && this.retakeData.userAns[i-1] === 'C' ? 'checked' : '';
+            const checkedD = this.retakeData && this.retakeData.userAns[i-1] === 'D' ? 'checked' : '';
+
+            mcqDiv.innerHTML = `
+              <p class="flex-1 md:mr-4 font-semibold text-gray-700 mb-2 md:mb-0 min-w-0 font-hind text-sm sm:text-base">
+                <i class="fas fa-question-circle text-blue-600 mr-2" aria-hidden="true"></i>
+                প্রশ্ন ${i}:
+              </p>
+              <div class="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap items-center" role="radiogroup" aria-label="Question ${i} options">
+                <input type="radio" name="q${i}" value="A" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0" ${checkedA} aria-label="Option A">
+                <input type="radio" name="q${i}" value="B" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0" ${checkedB} aria-label="Option B">
+                <input type="radio" name="q${i}" value="C" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0" ${checkedC} aria-label="Option C">
+                <input type="radio" name="q${i}" value="D" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0" ${checkedD} aria-label="Option D">
+              </div>
+            `;
+            mcqContainer.appendChild(mcqDiv);
+          }
+        }
+
+        setupFloatingSummary() {
+          const floatingSummary = document.getElementById('floating-summary');
+          if (!floatingSummary) return;
+
+          const summaryContent = document.createElement('div');
+          summaryContent.id = 'summary-content';
+          summaryContent.className = 'fixed bottom-16 left-2 sm:bottom-20 sm:left-5 w-40 sm:w-48 max-h-40 sm:max-h-48 p-2 sm:p-3 bg-white/95 border-2 border-green-500 rounded-xl shadow-xl overflow-y-auto z-40 backdrop-blur-sm';
+          summaryContent.style.display = 'none';
+          summaryContent.setAttribute('role', 'dialog');
+          summaryContent.setAttribute('aria-label', 'Question summary');
+          document.body.appendChild(summaryContent);
+
+          this.addEventListener('floating-summary', 'click', () => {
+            this.summaryVisible = !this.summaryVisible;
+            summaryContent.style.display = this.summaryVisible ? 'block' : 'none';
+            if (this.summaryVisible) this.updateSummary(summaryContent);
+          });
+
+          this.addEventListener('floating-summary', 'keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              floatingSummary.click();
+            }
+          });
+        }
+
+        updateSummary(container) {
+          if (!container) return;
+          container.innerHTML = '';
+
+          for (let i = 1; i <= this.testData.mcqNumber; i++) {
+            const isAnswered = document.querySelector(`input[name="q${i}"]:checked`);
+            const color = isAnswered ? 'bg-green-500 text-white' : 'bg-transparent text-gray-700';
+            const questionBox = document.createElement('div');
+            questionBox.className = `inline-block w-6 h-6 sm:w-7 sm:h-7 m-0.5 sm:m-1 bg-gray-200 border border-gray-300 text-center leading-6 sm:leading-7 cursor-pointer rounded-lg font-bold transition-all duration-300 hover:scale-110 text-xs sm:text-sm ${color}`;
+            questionBox.textContent = i;
+            questionBox.setAttribute('role', 'button');
+            questionBox.setAttribute('aria-label', `Go to question ${i}`);
+            questionBox.setAttribute('tabindex', '0');
+
+            questionBox.addEventListener('click', () => {
+              document.getElementById(`mcq-${i}`).scrollIntoView({ behavior: 'smooth' });
+            });
+
+            questionBox.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                questionBox.click();
+              }
+            });
+
+            container.appendChild(questionBox);
+          }
+        }
+
+        // Timer functionality
+        startTimer() {
+          const timerDisplay = document.getElementById('timer');
+          if (!timerDisplay) return;
+
+          let timeRemaining = this.testData.timeLimit * 60;
+
+          if (this.timer) {
+            clearInterval(this.timer);
+          }
+
+          this.timer = setInterval(() => {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            timerDisplay.textContent = `অবশিষ্ট সময়: ${minutes}মি ${seconds}সে`;
+            timeRemaining--;
+
+            if (timeRemaining < 0) {
+              clearInterval(this.timer);
+              timerDisplay.textContent = 'সময় শেষ!';
+              timerDisplay.classList.add('bg-red-500');
+              timerDisplay.classList.remove('bg-gradient-accent');
+              alert('সময় শেষ! পরীক্ষা স্বয়ংক্রিয়ভাবে জমা দেওয়া হবে।');
+              this.submitTest();
+            }
+          }, 1000);
+        }
+
+        // Test submission
+        submitTest() {
+          this.showSection('correct-answer-section');
+          if (this.timer) {
+            clearInterval(this.timer);
+          }
+          this.generateCorrectAnswerInterface();
+        }
+
+        generateCorrectAnswerInterface() {
+          const correctAnswerContainer = document.getElementById('correct-answer-container');
+          if (!correctAnswerContainer) return;
+
+          correctAnswerContainer.innerHTML = '';
+
+          for (let i = 1; i <= this.testData.mcqNumber; i++) {
+            const answerDiv = document.createElement('div');
+            answerDiv.className = 'flex flex-col md:flex-row md:items-center justify-between mb-4 md:mb-5 gap-2.5 md:gap-4 p-4 md:p-5 border border-white/30 rounded-xl bg-white/80 glass-morphism shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5';
+
+            const checkedA = this.retakeData && this.retakeData.correctAns[i-1] === 'A' ? 'checked' : '';
+            const checkedB = this.retakeData && this.retakeData.correctAns[i-1] === 'B' ? 'checked' : '';
+            const checkedC = this.retakeData && this.retakeData.correctAns[i-1] === 'C' ? 'checked' : '';
+            const checkedD = this.retakeData && this.retakeData.correctAns[i-1] === 'D' ? 'checked' : '';
+
+            answerDiv.innerHTML = `
+              <p class="flex-1 md:mr-4 font-semibold text-gray-700 mb-2 md:mb-0 min-w-0 font-hind">
+                <i class="fas fa-check-circle text-blue-600 mr-2" aria-hidden="true"></i>
+                প্রশ্ন ${i} এর সঠিক উত্তর:
+              </p>
+              <div class="flex gap-2 flex-wrap md:flex-nowrap items-center" role="radiogroup" aria-label="Correct answer for question ${i}">
+                <input type="radio" name="correct-q${i}" value="A" class="radio-custom w-6 h-6 relative m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[24px] flex-shrink-0" ${checkedA} aria-label="Correct answer A">
+                <input type="radio" name="correct-q${i}" value="B" class="radio-custom w-6 h-6 relative m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[24px] flex-shrink-0" ${checkedB} aria-label="Correct answer B">
+                <input type="radio" name="correct-q${i}" value="C" class="radio-custom w-6 h-6 relative m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[24px] flex-shrink-0" ${checkedC} aria-label="Correct answer C">
+                <input type="radio" name="correct-q${i}" value="D" class="radio-custom w-6 h-6 relative m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[24px] flex-shrink-0" ${checkedD} aria-label="Correct answer D">
+              </div>
+            `;
+            correctAnswerContainer.appendChild(answerDiv);
+          }
+
+          this.setupCorrectAnswerValidation();
+        }
+
+        setupCorrectAnswerValidation() {
+          const submitButton = document.getElementById('submit-correct-answers');
+          const warningMessage = document.getElementById('warning-message');
+
+          if (!submitButton || !warningMessage) return;
+
+          const updateButtonState = () => {
+            let allSelected = true;
+            for (let i = 1; i <= this.testData.mcqNumber; i++) {
+              const selected = document.querySelector(`input[name="correct-q${i}"]:checked`);
+              if (!selected) {
+                allSelected = false;
+                break;
+              }
+            }
+
+            submitButton.disabled = !allSelected;
+            submitButton.style.opacity = allSelected ? '1' : '0.5';
+            warningMessage.style.display = allSelected ? 'none' : 'block';
+          };
+
+          // Add event listeners for all radio buttons
+          for (let i = 1; i <= this.testData.mcqNumber; i++) {
+            const radioButtons = document.querySelectorAll(`input[name="correct-q${i}"]`);
+            radioButtons.forEach(radio => {
+              radio.addEventListener('change', updateButtonState);
+            });
+          }
+
+          updateButtonState();
+        }
+
+        // Results calculation and display
+        submitCorrectAnswers() {
+          this.showSection('result-section');
+          this.calculateAndDisplayResults();
+        }
+
+        calculateAndDisplayResults() {
+          const resultContainer = document.getElementById('result-container');
+          if (!resultContainer) return;
+
+          let correctCount = 0;
+          let incorrectCount = 0;
+          let skippedCount = 0;
+          const userAnswers = [];
+          const correctAnswers = [];
+
+          for (let i = 1; i <= this.testData.mcqNumber; i++) {
+            const userAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+            const correctAnswer = document.querySelector(`input[name="correct-q${i}"]:checked`);
+
+            userAnswers.push(userAnswer ? userAnswer.value : '');
+            correctAnswers.push(correctAnswer ? correctAnswer.value : '');
+
+            if (!userAnswer) {
+              skippedCount++;
+            } else if (userAnswer && correctAnswer) {
+              if (userAnswer.value === correctAnswer.value) {
+                correctCount++;
+              } else {
+                incorrectCount++;
+              }
+            }
+          }
+
+          const totalScore = correctCount * this.testData.marksPerQuestion - incorrectCount * this.testData.negativeMarkingValue;
+          const percentage = (correctCount / this.testData.mcqNumber) * 100;
+
+          resultContainer.innerHTML = `
+            <div class="bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-500 p-4 md:p-6 rounded-xl shadow-xl">
+              <h3 class="text-gray-800 font-bold mb-6 font-hind text-xl md:text-2xl text-center">
+                <i class="fas fa-chart-pie text-blue-600 mr-2" aria-hidden="true"></i>
+                পরীক্ষার ফলাফল
+              </h3>
+              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-6">
+                <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
+                  <i class="fas fa-list text-blue-600 text-xl sm:text-3xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
+                  <div class="text-lg sm:text-2xl font-bold text-blue-600">${this.testData.mcqNumber}</div>
+                  <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">মোট প্রশ্ন</div>
+                </div>
+                <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
+                  <i class="fas fa-check-circle text-green-600 text-xl sm:text-3xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
+                  <div class="text-lg sm:text-2xl font-bold text-green-600">${correctCount}</div>
+                  <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">সঠিক উত্তর</div>
+                </div>
+                <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
+                  <i class="fas fa-times-circle text-red-600 text-xl sm:text-3xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
+                  <div class="text-lg sm:text-2xl font-bold text-red-600">${incorrectCount}</div>
+                  <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">ভুল উত্তর</div>
+                </div>
+                <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
+                  <i class="fas fa-minus-circle text-orange-600 text-xl sm:text-3xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
+                  <div class="text-lg sm:text-2xl font-bold text-orange-600">${skippedCount}</div>
+                  <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">বাদ দেওয়া প্রশ্ন</div>
+                </div>
+                <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
+                  <i class="fas fa-exclamation-triangle text-purple-600 text-xl sm:text-3xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
+                  <div class="text-lg sm:text-2xl font-bold text-purple-600">${(incorrectCount * this.testData.negativeMarkingValue).toFixed(2)}</div>
+                  <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">নেগেটিভ মার্কিং</div>
+                </div>
+                <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
+                  <i class="fas fa-trophy text-yellow-600 text-xl sm:text-3xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
+                  <div class="text-lg sm:text-2xl font-bold text-yellow-600">${totalScore.toFixed(2)}</div>
+                  <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">মোট স্কোর</div>
+                </div>
+              </div>
+              <div class="bg-gradient-to-r from-orange-100 to-orange-200 border-2 border-orange-300 p-3 sm:p-4 rounded-xl text-center">
+                <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-orange-700 mb-2">
+                  <i class="fas fa-percentage mr-2" aria-hidden="true"></i> ${percentage.toFixed(2)}%
+                </div>
+                <div class="text-base sm:text-lg font-semibold text-orange-800 font-hind">সার্বিক শতাংশ</div>
+              </div>
+            </div>
+          `;
+
+          // Store results for saving
+          this.currentResults = {
+            userAnswers,
+            correctAnswers,
+            totalScore,
+            percentage
+          };
+        }
+
+        // History management
+        saveTest() {
+          if (!this.currentResults) {
+            alert('কোন ফলাফল নেই সেভ করার জন্য।');
+            return;
+          }
+
+          const testData = {
+            name: this.testData.name,
+            totalQ: this.testData.mcqNumber,
+            marksPerQ: this.testData.marksPerQuestion,
+            negMark: this.testData.negativeMarkingValue,
+            timeLim: this.testData.timeLimit,
+            userAns: this.currentResults.userAnswers,
+            correctAns: this.currentResults.correctAnswers,
+            date: new Date().toISOString()
+          };
+
+          const tests = this.safeLocalStorageGet('examHistory', []);
+          tests.push(testData);
+
+          if (this.safeLocalStorageSet('examHistory', tests)) {
+            alert('পরীক্ষা সেভ হয়েছে!');
+          }
+        }
+
+        loadHistory() {
+          const tests = this.safeLocalStorageGet('examHistory', []);
+          const container = document.getElementById('history-container');
+
+          if (!container) return;
+
+          container.innerHTML = '';
+
+          if (tests.length === 0) {
+            container.innerHTML = '<p class="text-center text-gray-600">কোন পরীক্ষা সেভ হয়নি।</p>';
+            return;
+          }
+
+          tests.forEach((test, index) => {
+            const div = document.createElement('div');
+            div.className = 'bg-white/80 p-4 rounded-lg shadow-md mb-4';
+            div.innerHTML = `
+              <h3 class="font-bold text-lg">${this.escapeHtml(test.name)}</h3>
+              <p>তারিখ: ${new Date(test.date).toLocaleString()}</p>
+              <p>মোট প্রশ্ন: ${test.totalQ}, প্রশ্ন প্রতি নাম্বার: ${test.marksPerQ}, নেগেটিভ মার্কিং: ${test.negMark}, সময়: ${test.timeLim} মিনিট</p>
+              <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded mr-2 retake-btn" data-index="${index}" aria-label="Retake test ${index + 1}">পুনরায় নেওয়া</button>
+              <button class="mt-2 px-4 py-2 bg-red-500 text-white rounded delete-btn" data-index="${index}" aria-label="Delete test ${index + 1}">ডিলিট</button>
+            `;
+            container.appendChild(div);
+          });
+
+          // Add event listeners for history buttons
+          container.querySelectorAll('.retake-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              const index = parseInt(e.target.dataset.index);
+              this.retakeTest(index);
+            });
+          });
+
+          container.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              const index = parseInt(e.target.dataset.index);
+              this.deleteTest(index);
+            });
+          });
+        }
+
+        deleteTest(index) {
+          const tests = this.safeLocalStorageGet('examHistory', []);
+          if (index >= 0 && index < tests.length) {
+            tests.splice(index, 1);
+            this.safeLocalStorageSet('examHistory', tests);
+            this.loadHistory();
+          }
+        }
+
+        retakeTest(index) {
+          const tests = this.safeLocalStorageGet('examHistory', []);
+          const test = tests[index];
+
+          if (!test) return;
+
+          this.retakeData = test;
+
+          // Set test data
+          this.testData = {
+            name: test.name,
+            mcqNumber: test.totalQ,
+            marksPerQuestion: test.marksPerQ,
+            negativeMarkingValue: test.negMark,
+            timeLimit: test.timeLim
+          };
+
+          // Fill configuration form
+          document.getElementById('test-name').value = test.name;
+          document.getElementById('mcq-number').value = test.totalQ;
+          document.getElementById('marks-per-question').value = test.marksPerQ;
+          document.getElementById('negative-marking-value').value = test.negMark;
+          document.getElementById('time-limit').value = test.timeLim;
+
+          // Show test section
+          this.showSection('test-section');
+          this.generateTestInterface();
+          this.startTimer();
+        }
+
+        // Utility methods
+        escapeHtml(text) {
+          const div = document.createElement('div');
+          div.textContent = text;
+          return div.innerHTML;
+        }
+
+        // Event setup
+        setupEventListeners() {
+          // Form submission
+          this.addEventListener('test-form', 'submit', (e) => this.handleFormSubmit(e));
+
+          // Navigation buttons
+          this.addEventListener('view-history', 'click', () => {
+            this.showSection('history-section');
+            this.loadHistory();
+          });
+
+          this.addEventListener('back-to-home', 'click', () => {
+            this.showSection('configuration-section');
+          });
+
+          // Test submission
+          this.addEventListener('submit-test', 'click', () => this.submitTest());
+
+          // Correct answers submission
+          this.addEventListener('submit-correct-answers', 'click', () => this.submitCorrectAnswers());
+
+          // Results actions
+          this.addEventListener('save-test', 'click', () => this.saveTest());
+
+          this.addEventListener('print-result', 'click', () => window.print());
+
+          this.addEventListener('restart-btn', 'click', () => {
+            if (this.timer) {
+              clearInterval(this.timer);
+            }
+            this.retakeData = null;
+            this.showSection('configuration-section');
+            document.getElementById('test-form').reset();
+            document.getElementById('correct-answer-container').innerHTML = '';
+            document.getElementById('mcq-container').innerHTML = '';
+            document.getElementById('result-container').innerHTML = '';
+          });
+        }
+      }
+
+      // Initialize the application when DOM is loaded
+      document.addEventListener('DOMContentLoaded', () => {
+        new ExamApp();
+      });
+    </script>
+  </body>
+</html>
+    <script>
+      let mcqNumber = 0;
+      let testName = "";
+      let timeLimit = 0;
+      let marksPerQuestion = 1;
+      let negativeMarkingValue = 0.25;
+      let retakeData = null;
+      let timer;
+      let saveListenerAttached = false;
+      let printListenerAttached = false;
+
+      function showSection(sectionId) {
+        const sections = ["configuration-section", "test-section", "correct-answer-section", "result-section", "history-section"];
+        sections.forEach(id => {
+          document.getElementById(id).classList.add("hidden");
+        });
+        document.getElementById(sectionId).classList.remove("hidden");
+      }
+
+      function saveTest(name, totalQ, marksPerQ, negMark, timeLim, userAns, correctAns, date) {
+        const tests = JSON.parse(localStorage.getItem("examHistory") || "[]");
+        tests.push({ name, totalQ, marksPerQ, negMark, timeLim, userAns, correctAns, date });
+        localStorage.setItem("examHistory", JSON.stringify(tests));
+      }
+
+      function loadHistory() {
+        const tests = JSON.parse(localStorage.getItem("examHistory") || "[]");
+        const container = document.getElementById("history-container");
+        container.innerHTML = "";
+        if (tests.length === 0) {
+          container.innerHTML = "<p class='text-center text-gray-600'>কোন পরীক্ষা সেভ হয়নি।</p>";
+          return;
+        }
+        tests.forEach((test, index) => {
+          const div = document.createElement("div");
+          div.className = "bg-white/80 p-4 rounded-lg shadow-md mb-4";
+          div.innerHTML = `
+            <h3 class="font-bold text-lg">${test.name}</h3>
+            <p>তারিখ: ${new Date(test.date).toLocaleString()}</p>
+            <p>মোট প্রশ্ন: ${test.totalQ}, প্রশ্ন প্রতি নাম্বার: ${test.marksPerQ}, নেগেটিভ মার্কিং: ${test.negMark}, সময়: ${test.timeLim} মিনিট</p>
+            <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded mr-2" onclick="retakeTest(${index})">পুনরায় নেওয়া</button>
+            <button class="mt-2 px-4 py-2 bg-red-500 text-white rounded" onclick="deleteTest(${index})">ডিলিট</button>
+          `;
+          container.appendChild(div);
+        });
+      }
+
+      function deleteTest(index) {
+        const tests = JSON.parse(localStorage.getItem("examHistory") || "[]");
+        tests.splice(index, 1);
+        localStorage.setItem("examHistory", JSON.stringify(tests));
+        loadHistory();
+      }
+
+      function retakeTest(index) {
+        const tests = JSON.parse(localStorage.getItem("examHistory") || "[]");
+        const test = tests[index];
+        if (!test) return;
+
+        retakeData = test;
+
+        // Set variables
+        testName = test.name;
+        mcqNumber = test.totalQ;
+        marksPerQuestion = test.marksPerQ;
+        negativeMarkingValue = test.negMark;
+        timeLimit = test.timeLim;
+
+        // Fill configuration
+        document.getElementById("test-name").value = testName;
+        document.getElementById("mcq-number").value = mcqNumber;
+        document.getElementById("marks-per-question").value = marksPerQuestion;
+        document.getElementById("negative-marking-value").value = negativeMarkingValue;
+        document.getElementById("time-limit").value = timeLimit;
+
+        // Show test section
+        showSection("test-section");
+
+        // Generate MCQs with pre-filled answers
+        const mcqContainer = document.getElementById("mcq-container");
+        mcqContainer.innerHTML = "";
+        for (let i = 1; i <= mcqNumber; i++) {
+          const mcqDiv = document.createElement("div");
+          mcqDiv.className =
+            "flex flex-col md:flex-row md:items-center justify-between mb-3 sm:mb-4 md:mb-5 gap-2 sm:gap-2.5 md:gap-4 p-3 sm:p-4 md:p-5 border border-white/30 rounded-xl bg-white/80 glass-morphism shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5";
+          mcqDiv.innerHTML = `
+                    <p class="flex-1 md:mr-4 font-semibold text-gray-700 mb-2 md:mb-0 min-w-0 font-hind text-sm sm:text-base"><i class="fas fa-question-circle text-blue-600 mr-2"></i> প্রশ্ন ${i}:</p>
+                    <div class="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap items-center">
+                        <input type="radio" name="q${i}" value="A" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0" ${test.userAns[i-1] === 'A' ? 'checked' : ''}>
+                        <input type="radio" name="q${i}" value="B" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0" ${test.userAns[i-1] === 'B' ? 'checked' : ''}>
+                        <input type="radio" name="q${i}" value="C" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0" ${test.userAns[i-1] === 'C' ? 'checked' : ''}>
+                        <input type="radio" name="q${i}" value="D" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0" ${test.userAns[i-1] === 'D' ? 'checked' : ''}>
+                    </div>
+                `;
+          mcqContainer.appendChild(mcqDiv);
+        }
+
+        // Update test details
+        const testDetails = document.getElementById("test-details");
+        testDetails.innerHTML = `
+          <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 font-hind text-center"><i class="fas fa-clipboard-list text-blue-600 mr-2"></i> ${testName}</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-center">
+              <div class="bg-white/80 p-2 sm:p-3 rounded-lg shadow-md">
+                  <i class="fas fa-list text-blue-600 text-lg sm:text-2xl mb-1 sm:mb-2 block"></i>
+                  <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">মোট প্রশ্ন</div>
+                  <div class="text-base sm:text-lg font-bold text-blue-600">${mcqNumber}</div>
+              </div>
+              <div class="bg-white/80 p-2 sm:p-3 rounded-lg shadow-md">
+                  <i class="fas fa-hourglass-half text-blue-600 text-lg sm:text-2xl mb-1 sm:mb-2 block"></i>
+                  <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">সময়সীমা</div>
+                  <div class="text-base sm:text-lg font-bold text-blue-600">${timeLimit} মিনিট</div>
+              </div>
+              <div class="bg-white/80 p-2 sm:p-3 rounded-lg shadow-md">
+                  <i class="fas fa-star text-blue-600 text-lg sm:text-2xl mb-1 sm:mb-2 block"></i>
+                  <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">প্রশ্ন প্রতি নাম্বার</div>
+                  <div class="text-base sm:text-lg font-bold text-blue-600">${marksPerQuestion}</div>
+              </div>
+              <div class="bg-white/80 p-2 sm:p-3 rounded-lg shadow-md">
+                  <i class="fas fa-exclamation-triangle text-blue-600 text-lg sm:text-2xl mb-1 sm:mb-2 block"></i>
+                  <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">নেগেটিভ মার্কিং</div>
+                  <div class="text-base sm:text-lg font-bold text-blue-600">${negativeMarkingValue > 0 ? negativeMarkingValue : "বন্ধ"}</div>
+              </div>
+          </div>
+        `;
+
+        // Start timer
+        const timerDisplay = document.getElementById("timer");
+        let timeRemaining = timeLimit * 60;
+        if (timer) clearInterval(timer);
+        timer = setInterval(() => {
+          const minutes = Math.floor(timeRemaining / 60);
+          const seconds = timeRemaining % 60;
+          timerDisplay.textContent = `অবশিষ্ট সময়: ${minutes}মি ${seconds}সে`;
+          timeRemaining--;
+          if (timeRemaining < 0) {
+            clearInterval(timer);
+            timerDisplay.textContent = "সময় শেষ!";
+            alert("সময় শেষ! পরীক্ষা স্বয়ংক্রিয়ভাবে জমা দেওয়া হবে।");
+            document.getElementById("submit-test").click();
+          }
+        }, 1000);
+      }
+
+      // Tab listeners (removed, using buttons instead)
+      // document.getElementById("home-tab").addEventListener("click", function() {
+      //   showSection("configuration-section");
+      // });
+      // document.getElementById("history-tab").addEventListener("click", function() {
+      //   showSection("history-section");
+      //   loadHistory();
+      // });
+
+      // Button listeners
+      document.getElementById("view-history").addEventListener("click", function() {
+        showSection("history-section");
+        loadHistory();
+      });
+      document.getElementById("back-to-home").addEventListener("click", function() {
+        showSection("configuration-section");
+      });
+
+      // Initially show configuration
+      showSection("configuration-section");
+
+      document
+        .getElementById("test-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          testName = document.getElementById("test-name").value;
+          mcqNumber = parseInt(document.getElementById("mcq-number").value);
+          timeLimit = parseInt(document.getElementById("time-limit").value);
+          marksPerQuestion = parseFloat(document.getElementById("marks-per-question").value);
+          negativeMarkingValue = parseFloat(document.getElementById("negative-marking-value").value);
+
+          document.getElementById("configuration-section").style.display =
+            "none";
+          document.getElementById("test-section").style.display = "block";
+
+          const testDetails = document.getElementById("test-details");
+          testDetails.innerHTML = `
+            <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4 font-hind text-center"><i class="fas fa-clipboard-list text-blue-600 mr-2"></i> ${testName}</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-center">
+                <div class="bg-white/80 p-2 sm:p-3 rounded-lg shadow-md">
+                    <i class="fas fa-list text-blue-600 text-lg sm:text-2xl mb-1 sm:mb-2 block"></i>
+                    <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">মোট প্রশ্ন</div>
+                    <div class="text-base sm:text-lg font-bold text-blue-600">${mcqNumber}</div>
+                </div>
+                <div class="bg-white/80 p-2 sm:p-3 rounded-lg shadow-md">
+                    <i class="fas fa-hourglass-half text-blue-600 text-lg sm:text-2xl mb-1 sm:mb-2 block"></i>
+                    <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">সময়সীমা</div>
+                    <div class="text-base sm:text-lg font-bold text-blue-600">${timeLimit} মিনিট</div>
+                </div>
+                <div class="bg-white/80 p-2 sm:p-3 rounded-lg shadow-md">
+                    <i class="fas fa-star text-blue-600 text-lg sm:text-2xl mb-1 sm:mb-2 block"></i>
+                    <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">প্রশ্ন প্রতি নাম্বার</div>
+                    <div class="text-base sm:text-lg font-bold text-blue-600">${marksPerQuestion}</div>
+                </div>
+                <div class="bg-white/80 p-2 sm:p-3 rounded-lg shadow-md">
+                    <i class="fas fa-exclamation-triangle text-blue-600 text-lg sm:text-2xl mb-1 sm:mb-2 block"></i>
+                    <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">নেগেটিভ মার্কিং</div>
+                    <div class="text-base sm:text-lg font-bold text-blue-600">${negativeMarkingValue > 0 ? negativeMarkingValue : "বন্ধ"}</div>
+                </div>
+            </div>
+        `;
+          const timerDisplay = document.getElementById("timer");
+          let timeRemaining = timeLimit * 60;
+          timer = setInterval(() => {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            timerDisplay.textContent = `অবশিষ্ট সময়: ${minutes}মি ${seconds}সে`;
+            timeRemaining--;
+
+            if (timeRemaining < 0) {
+              clearInterval(timer);
+              timerDisplay.textContent = "সময় শেষ!";
+              alert("সময় শেষ! পরীক্ষা স্বয়ংক্রিয়ভাবে জমা দেওয়া হবে।");
+              document.getElementById("submit-test").click();
+            }
+          }, 1000);
+
+          const mcqContainer = document.getElementById("mcq-container");
+          mcqContainer.innerHTML = "";
+          for (let i = 1; i <= mcqNumber; i++) {
+            const mcqDiv = document.createElement("div");
+            mcqDiv.className =
+              "flex flex-col md:flex-row md:items-center justify-between mb-3 sm:mb-4 md:mb-5 gap-2 sm:gap-2.5 md:gap-4 p-3 sm:p-4 md:p-5 border border-white/30 rounded-xl bg-white/80 glass-morphism shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5";
+            mcqDiv.innerHTML = `
+                    <p class="flex-1 md:mr-4 font-semibold text-gray-700 mb-2 md:mb-0 min-w-0 font-hind text-sm sm:text-base"><i class="fas fa-question-circle text-blue-600 mr-2"></i> প্রশ্ন ${i}:</p>
+                    <div class="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap items-center">
+                        <input type="radio" name="q${i}" value="A" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0">
+                        <input type="radio" name="q${i}" value="B" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0">
+                        <input type="radio" name="q${i}" value="C" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0">
+                        <input type="radio" name="q${i}" value="D" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0">
+                    </div>
+                `;
+            mcqContainer.appendChild(mcqDiv);
+          }
+        });
+
+      document
+        .getElementById("submit-test")
+        .addEventListener("click", function () {
+          document.getElementById("test-section").style.display = "none";
+          document.getElementById("correct-answer-section").style.display =
+            "block";
+
+          const correctAnswerContainer = document.getElementById(
+            "correct-answer-container"
+          );
+          correctAnswerContainer.innerHTML = "";
+          for (let i = 1; i <= mcqNumber; i++) {
+            const answerDiv = document.createElement("div");
+            answerDiv.className =
+              "flex flex-col md:flex-row md:items-center justify-between mb-4 md:mb-5 gap-2.5 md:gap-4 p-4 md:p-5 border border-white/30 rounded-xl bg-white/80 glass-morphism shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5";
+            answerDiv.innerHTML = `
+                    <p class="flex-1 md:mr-4 font-semibold text-gray-700 mb-2.5 md:mb-0 min-w-0 font-hind"><i class="fas fa-check-circle text-blue-600 mr-2"></i> প্রশ্ন ${i} এর সঠিক উত্তর:</p>
+                    <div class="flex gap-2 flex-wrap md:flex-nowrap items-center">
+                        <input type="radio" name="correct-q${i}" value="A" class="radio-custom w-6 h-6 relative m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[24px] flex-shrink-0" ${retakeData && retakeData.correctAns[i-1] === 'A' ? 'checked' : ''}>
+                        <input type="radio" name="correct-q${i}" value="B" class="radio-custom w-6 h-6 relative m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[24px] flex-shrink-0" ${retakeData && retakeData.correctAns[i-1] === 'B' ? 'checked' : ''}>
+                        <input type="radio" name="correct-q${i}" value="C" class="radio-custom w-6 h-6 relative m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[24px] flex-shrink-0" ${retakeData && retakeData.correctAns[i-1] === 'C' ? 'checked' : ''}>
+                        <input type="radio" name="correct-q${i}" value="D" class="radio-custom w-6 h-6 relative m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[24px] flex-shrink-0" ${retakeData && retakeData.correctAns[i-1] === 'D' ? 'checked' : ''}>
+                    </div>
+                `;
+            correctAnswerContainer.appendChild(answerDiv);
+          }
+        });
+
+      document
+        .getElementById("submit-correct-answers")
+        .addEventListener("click", function () {
+          showSection("result-section");
+
+          const resultContainer = document.getElementById("result-container");
+          let correctCount = 0;
+          let incorrectCount = 0;
+          let skippedCount = 0;
+
+          for (let i = 1; i <= mcqNumber; i++) {
+            const userAnswer = document.querySelector(
+              `input[name="q${i}"]:checked`
+            );
+            const correctAnswer = document.querySelector(
+              `input[name="correct-q${i}"]:checked`
+            );
+            if (!userAnswer) {
+              skippedCount++;
+            } else if (userAnswer && correctAnswer) {
+              if (userAnswer.value === correctAnswer.value) {
+                correctCount++;
+              } else {
+                incorrectCount++;
+              }
+            }
+          }
+
+          const negativeMarking = negativeMarkingValue;
+          const totalScore = correctCount * marksPerQuestion - incorrectCount * negativeMarking;
+
+          resultContainer.innerHTML = `
+            <div class="bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-500 p-4 md:p-6 rounded-xl shadow-xl">
+                <h3 class="text-gray-800 font-bold mb-6 font-hind text-xl md:text-2xl text-center"><i class="fas fa-chart-pie text-blue-600 mr-2"></i> পরীক্ষার ফলাফল</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-6">
+                    <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
+                        <i class="fas fa-list text-blue-600 text-xl sm:text-3xl mb-1 sm:mb-2 block"></i>
+                        <div class="text-lg sm:text-2xl font-bold text-blue-600">${mcqNumber}</div>
+                        <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">মোট প্রশ্ন</div>
+                    </div>
+                    <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
+                        <i class="fas fa-check-circle text-green-600 text-xl sm:text-3xl mb-1 sm:mb-2 block"></i>
+                        <div class="text-lg sm:text-2xl font-bold text-green-600">${correctCount}</div>
+                        <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">সঠিক উত্তর</div>
+                    </div>
+                    <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
+                        <i class="fas fa-times-circle text-red-600 text-xl sm:text-3xl mb-1 sm:mb-2 block"></i>
+                        <div class="text-lg sm:text-2xl font-bold text-red-600">${incorrectCount}</div>
+                        <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">ভুল উত্তর</div>
+                    </div>
+                    <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
+                        <i class="fas fa-minus-circle text-orange-600 text-xl sm:text-3xl mb-1 sm:mb-2 block"></i>
+                        <div class="text-lg sm:text-2xl font-bold text-orange-600">${skippedCount}</div>
+                        <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">বাদ দেওয়া প্রশ্ন</div>
+                    </div>
+                    <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
+                        <i class="fas fa-exclamation-triangle text-purple-600 text-xl sm:text-3xl mb-1 sm:mb-2 block"></i>
+                        <div class="text-lg sm:text-2xl font-bold text-purple-600">${
+                          (incorrectCount * negativeMarking).toFixed(2)
+                        }</div>
+                        <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">নেগেটিভ মার্কিং</div>
+                    </div>
+                    <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
+                        <i class="fas fa-trophy text-yellow-600 text-xl sm:text-3xl mb-1 sm:mb-2 block"></i>
+                        <div class="text-lg sm:text-2xl font-bold text-yellow-600">${totalScore.toFixed(
+                          2
+                        )}</div>
+                        <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">মোট স্কোর</div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-orange-100 to-orange-200 border-2 border-orange-300 p-3 sm:p-4 rounded-xl text-center">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-orange-700 mb-2">
+                        <i class="fas fa-percentage mr-2"></i> ${(
+                          (correctCount / mcqNumber) *
+                          100
+                        ).toFixed(2)}%
+                    </div>
+                    <div class="text-base sm:text-lg font-semibold text-orange-800 font-hind">সার্বিক শতাংশ</div>
+                </div>
+            </div>
+        `;
+
+          // Add print functionality
+          document.getElementById("print-result").addEventListener("click", function() {
+            window.print();
+          });
+
+          // Add save functionality
+          let userAnswers = [];
+          let correctAnswers = [];
+          for (let i = 1; i <= mcqNumber; i++) {
+            const userAns = document.querySelector(`input[name="q${i}"]:checked`);
+            userAnswers.push(userAns ? userAns.value : '');
+            const correctAns = document.querySelector(`input[name="correct-q${i}"]:checked`);
+            correctAnswers.push(correctAns ? correctAns.value : '');
+          }
+          document.getElementById("save-test").addEventListener("click", function() {
+            let userAnswers = [];
+            let correctAnswers = [];
+            for (let i = 1; i <= mcqNumber; i++) {
+              const userAns = document.querySelector(`input[name="q${i}"]:checked`);
+              userAnswers.push(userAns ? userAns.value : '');
+              const correctAns = document.querySelector(`input[name="correct-q${i}"]:checked`);
+              correctAnswers.push(correctAns ? correctAns.value : '');
+            }
+            saveTest(testName, mcqNumber, marksPerQuestion, negativeMarkingValue, timeLimit, userAnswers, correctAnswers, new Date().toISOString());
+            alert("পরীক্ষা সেভ হয়েছে!");
+          });
+        });
+    </script>
+
+    <script>
+      // Consolidated button state management for correct answers
+      document.addEventListener("DOMContentLoaded", function () {
+        const correctAnswerButton = document.getElementById("submit-correct-answers");
+        const warningMessage = document.getElementById("warning-message");
+
+        // Set the correct warning message
+        warningMessage.textContent = "উত্তরপত্র থেকে সঠিক উত্তর গুলো সিলেক্ট করুন, এটা আপনার ফলাফল তৈরিতে কাজে লাগবে। অন্যথায় সাবমিট করতে পারবেন না।";
+
+        // Function to check if all correct answers are selected
+        function updateButtonState() {
+          let allSelected = true;
+          for (let i = 1; i <= mcqNumber; i++) {
+            const selected = document.querySelector(`input[name="correct-q${i}"]:checked`);
+            if (!selected) {
+              allSelected = false;
+              break;
+            }
+          }
+
+          if (allSelected) {
+            correctAnswerButton.style.display = "inline-block";
+            correctAnswerButton.disabled = false;
+            correctAnswerButton.style.backgroundColor = "#4CAF50";
+            correctAnswerButton.style.color = "white";
+            correctAnswerButton.style.pointerEvents = "auto";
+            warningMessage.style.display = "none";
+          } else {
+            correctAnswerButton.style.display = "none";
+            correctAnswerButton.disabled = true;
+            correctAnswerButton.style.backgroundColor = "#ccc";
+            correctAnswerButton.style.color = "#666";
+            correctAnswerButton.style.pointerEvents = "none";
+            warningMessage.style.display = "block";
+          }
+        }
+
+        // Attach event listeners to all radio buttons in the correct answer section
+        for (let i = 1; i <= mcqNumber; i++) {
+          const radioButtons = document.querySelectorAll(`input[name="correct-q${i}"]`);
+          radioButtons.forEach((radio) => {
+            radio.addEventListener("change", updateButtonState);
+          });
+        }
+
+        // Initial state on page load
+        correctAnswerButton.style.display = "none";
+        correctAnswerButton.disabled = true;
+        correctAnswerButton.style.backgroundColor = "#ccc";
+        correctAnswerButton.style.color = "#666";
+        correctAnswerButton.style.pointerEvents = "none";
+        warningMessage.style.display = "block";
+      });
+    </script>
+  </body>
+</html>
