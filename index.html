@@ -712,6 +712,19 @@
                       0
                     </div>
                   </div>
+                  <div
+                    class="bg-yellow-50 border border-yellow-200 rounded-xl px-3 py-2 flex items-center gap-2"
+                    id="auto-save-indicator"
+                    style="display: none"
+                  >
+                    <i
+                      class="fas fa-save text-yellow-600 text-sm animate-pulse"
+                    ></i>
+                    <span
+                      class="text-xs text-yellow-700 font-semibold font-hind"
+                      >সেভ হচ্ছে...</span
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -972,6 +985,31 @@
       </div>
     </footer>
     <script>
+      // --- utils (inlined) ---
+      function updateDateTime() {
+        const now = new Date();
+        const timeElement = document.getElementById("current-time");
+        const dateElement = document.getElementById("current-date");
+        if (timeElement) {
+          timeElement.textContent = now.toLocaleTimeString("bn-BD", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          });
+        }
+        if (dateElement) {
+          dateElement.textContent = now.toLocaleDateString("bn-BD", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+        }
+      }
+      function initDateTimeUpdate() {
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+      }
+
       class ExamApp {
         constructor() {
           this.testData = {
@@ -992,6 +1030,7 @@
         init() {
           this.setupEventListeners();
           this.showSection("configuration-section");
+          initDateTimeUpdate();
         }
         showSection(sectionId) {
           const sections = [
@@ -1150,28 +1189,27 @@
 
           mcqContainer.innerHTML = "";
 
+          // Check for saved test progress
+          const savedProgress = this.safeLocalStorageGet(
+            "currentTestProgress",
+            null,
+          );
+          const savedAnswers =
+            savedProgress && savedProgress.testName === this.testData.name
+              ? savedProgress.answers
+              : {};
+
           for (let i = 1; i <= this.testData.mcqNumber; i++) {
             const mcqDiv = document.createElement("div");
             mcqDiv.className =
               "flex flex-col md:flex-row md:items-center justify-between mb-2 sm:mb-3 md:mb-4 lg:mb-5 gap-2 sm:gap-3 md:gap-4 p-2 sm:p-3 md:p-4 lg:p-5 border border-white/30 rounded-lg sm:rounded-xl bg-white/80 glass-morphism shadow-md sm:shadow-lg transition-all duration-300 hover:shadow-lg sm:hover:shadow-xl hover:-translate-y-0.5";
             mcqDiv.setAttribute("id", `mcq-${i}`);
 
-            const checkedA =
-              this.retakeData && this.retakeData.userAns[i - 1] === "A"
-                ? "checked"
-                : "";
-            const checkedB =
-              this.retakeData && this.retakeData.userAns[i - 1] === "B"
-                ? "checked"
-                : "";
-            const checkedC =
-              this.retakeData && this.retakeData.userAns[i - 1] === "C"
-                ? "checked"
-                : "";
-            const checkedD =
-              this.retakeData && this.retakeData.userAns[i - 1] === "D"
-                ? "checked"
-                : "";
+            const savedAnswer = savedAnswers[i] || "";
+            const checkedA = savedAnswer === "A" ? "checked" : "";
+            const checkedB = savedAnswer === "B" ? "checked" : "";
+            const checkedC = savedAnswer === "C" ? "checked" : "";
+            const checkedD = savedAnswer === "D" ? "checked" : "";
 
             mcqDiv.innerHTML = `
               <p class="flex-1 md:mr-4 font-semibold text-gray-700 mb-1 sm:mb-2 md:mb-0 min-w-0 font-hind text-xs sm:text-sm md:text-base">
@@ -1186,6 +1224,14 @@
               </div>
             `;
             mcqContainer.appendChild(mcqDiv);
+
+            // Add auto-save event listeners
+            const radioButtons = mcqDiv.querySelectorAll(`input[name="q${i}"]`);
+            radioButtons.forEach((radio) => {
+              radio.addEventListener("change", () => {
+                this.saveTestProgress();
+              });
+            });
           }
         }
 
@@ -1303,7 +1349,21 @@
           const answeredCount = document.getElementById("answered-count");
           if (!timerDisplay || !timerCompact) return;
 
-          let timeRemaining = this.testData.timeLimit * 60;
+          // Check for saved timer progress, otherwise use initial time limit
+          const savedTimerData = this.safeLocalStorageGet(
+            "currentTestTimer",
+            null,
+          );
+          let timeRemaining;
+
+          if (
+            savedTimerData &&
+            savedTimerData.testName === this.testData.name
+          ) {
+            timeRemaining = savedTimerData.remainingTime;
+          } else {
+            timeRemaining = this.testData.timeLimit * 60;
+          }
 
           if (this.timer) {
             clearInterval(this.timer);
@@ -1331,10 +1391,20 @@
             if (timerCompact) timerCompact.textContent = timeString;
             updateAnsweredCount();
 
+            // Save timer progress to localStorage
+            const timerData = {
+              testName: this.testData.name,
+              remainingTime: timeRemaining,
+              timestamp: Date.now(),
+            };
+            this.safeLocalStorageSet("currentTestTimer", timerData);
+
             timeRemaining--;
 
             if (timeRemaining < 0) {
               clearInterval(this.timer);
+              // Clear saved timer data when time is up
+              this.safeLocalStorageSet("currentTestTimer", null);
               if (timerDisplay) timerDisplay.textContent = "সময় শেষ!";
               if (timerDisplay) timerDisplay.classList.add("bg-red-500");
               if (timerDisplay)
@@ -1352,6 +1422,9 @@
           if (this.timer) {
             clearInterval(this.timer);
           }
+          // Clear saved timer data and test progress when test is submitted
+          this.safeLocalStorageSet("currentTestTimer", null);
+          this.safeLocalStorageSet("currentTestProgress", null);
           this.generateCorrectAnswerInterface();
         }
 
@@ -1632,10 +1705,35 @@
           this.generateTestInterface();
           this.startTimer();
         }
-        escapeHtml(text) {
-          const div = document.createElement("div");
-          div.textContent = text;
-          return div.innerHTML;
+        saveTestProgress() {
+          const answers = {};
+          for (let i = 1; i <= this.testData.mcqNumber; i++) {
+            const selectedAnswer = document.querySelector(
+              `input[name="q${i}"]:checked`,
+            );
+            answers[i] = selectedAnswer ? selectedAnswer.value : "";
+          }
+
+          const progressData = {
+            testName: this.testData.name,
+            answers: answers,
+            timestamp: Date.now(),
+          };
+
+          // Show auto-save indicator
+          const indicator = document.getElementById("auto-save-indicator");
+          if (indicator) {
+            indicator.style.display = "flex";
+          }
+
+          this.safeLocalStorageSet("currentTestProgress", progressData);
+
+          // Hide indicator after a short delay
+          setTimeout(() => {
+            if (indicator) {
+              indicator.style.display = "none";
+            }
+          }, 1000);
         }
         setupEventListeners() {
           this.addEventListener("test-form", "submit", (e) =>
@@ -1664,6 +1762,9 @@
               clearInterval(this.timer);
             }
             this.retakeData = null;
+            // Clear saved timer data and test progress when restarting
+            this.safeLocalStorageSet("currentTestTimer", null);
+            this.safeLocalStorageSet("currentTestProgress", null);
             this.showSection("configuration-section");
             document.getElementById("test-form").reset();
             document.getElementById("correct-answer-container").innerHTML = "";
@@ -2133,7 +2234,5 @@
             });
         });
     </script>
-
-
   </body>
 </html>
