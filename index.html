@@ -73,16 +73,181 @@
         background-clip: text;
       }
 
+      /* Enhanced Mobile Touch Interaction */
+      .radio-custom {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+
       .radio-custom::before {
         content: attr(value);
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 12px;
-        color: #667eea;
         font-weight: bold;
         pointer-events: none;
+        transition: all 0.2s ease;
+      }
+
+      /* Mobile-first responsive design improvements */
+      @media screen and (max-width: 640px) {
+        .mobile-stack {
+          flex-direction: column !important;
+        }
+
+        .mobile-full-width {
+          width: 100% !important;
+        }
+
+        .mobile-text-sm {
+          font-size: 0.875rem !important;
+        }
+
+        .mobile-p-2 {
+          padding: 0.5rem !important;
+        }
+
+        .mobile-gap-2 {
+          gap: 0.5rem !important;
+        }
+
+        /* Enhanced touch targets for mobile */
+        .touch-target {
+          min-height: 48px !important;
+          min-width: 48px !important;
+        }
+
+        /* Better button spacing on mobile */
+        .mobile-button-spacing {
+          margin: 0.5rem 0 !important;
+        }
+
+        /* Improved form fields on mobile */
+        .mobile-form-field {
+          padding: 12px 16px !important;
+          font-size: 16px !important; /* Prevents zoom on iOS */
+        }
+
+        /* Better MCQ layout on mobile */
+        .mobile-mcq-option {
+          margin: 8px 0 !important;
+          padding: 12px !important;
+          border-radius: 12px !important;
+        }
+
+        /* Floating elements positioning for mobile */
+        .mobile-floating-bottom {
+          bottom: 20px !important;
+          left: 20px !important;
+          right: 20px !important;
+        }
+
+        /* Better summary positioning on mobile */
+        .mobile-summary-position {
+          bottom: 80px !important;
+          left: 10px !important;
+          right: 10px !important;
+          width: auto !important;
+          max-width: none !important;
+        }
+      }
+
+      /* Touch device optimizations */
+      @media (hover: none) and (pointer: coarse) {
+        .touch-optimize {
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+          user-select: none;
+          -webkit-user-select: none;
+        }
+
+        /* Larger touch targets */
+        button,
+        .cursor-pointer,
+        input[type="radio"],
+        input[type="checkbox"] {
+          min-height: 44px;
+          min-width: 44px;
+        }
+
+        /* Better spacing for touch */
+        .touch-spacing {
+          margin: 8px 0;
+        }
+      }
+
+      /* Landscape phone optimizations */
+      @media screen and (max-height: 500px) and (orientation: landscape) {
+        .landscape-compact {
+          padding: 0.25rem !important;
+          font-size: 0.75rem !important;
+        }
+
+        .landscape-hide {
+          display: none !important;
+        }
+
+        /* Compact timer in landscape */
+        #timer-compact {
+          font-size: 0.875rem !important;
+          padding: 0.25rem 0.5rem !important;
+        }
+
+        /* Smaller floating summary in landscape */
+        #summary-content {
+          max-height: 30vh !important;
+          width: 200px !important;
+        }
+      }
+
+      /* Tablet-specific optimizations */
+      @media screen and (min-width: 641px) and (max-width: 1024px) {
+        .tablet-columns {
+          display: grid !important;
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: 1rem !important;
+        }
+
+        .tablet-spacing {
+          padding: 1rem !important;
+          margin: 0.75rem 0 !important;
+        }
+      }
+
+      /* High DPI screen optimizations */
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+        .icon-sharp {
+          transform: translateZ(0);
+          -webkit-font-smoothing: antialiased;
+        }
+      }
+
+      /* Dark mode preparation for mobile */
+      @media (prefers-color-scheme: dark) {
+        .dark-mode-ready {
+          color-scheme: light; /* Force light mode for now */
+        }
+      }
+
+      /* Reduced motion for accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      /* Print styles */
+      @media print {
+        .no-print {
+          display: none !important;
+        }
+
+        .print-break-inside-avoid {
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
       }
 
       .radio-custom:checked {
@@ -432,6 +597,162 @@
         background-color: #10b981 !important;
         color: white !important;
       }
+
+      /* Professional animations and effects */
+      /* Simplified, subtle animations for a calmer UI */
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Remove pulsing glow - replace with subtle opacity change */
+      @keyframes subtlePulse {
+        0% { opacity: 0.95; }
+        50% { opacity: 1; }
+        100% { opacity: 0.95; }
+      }
+
+      @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(12px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+
+      /* Professional button effects */
+      .btn-professional {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-professional::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .btn-professional:hover::before {
+        left: 100%;
+      }
+
+      .btn-professional:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .btn-professional:active {
+        transform: translateY(0);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Enhanced visual feedback */
+      .status-indicator {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 8px;
+        animation: subtlePulse 2.2s infinite;
+      }
+
+      .status-success {
+        background-color: #10b981;
+      }
+      .status-warning {
+        background-color: #f59e0b;
+      }
+      .status-error {
+        background-color: #ef4444;
+      }
+      .status-info {
+        background-color: #3b82f6;
+      }
+
+      /* Professional scrollbars */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(45deg, #1d4ed8, #1e40af);
+      }
+
+      /* Loading states */
+      .loading-shimmer {
+        background: linear-gradient(90deg, #f5f5f5 0%, #f0f0f0 50%, #f5f5f5 100%);
+        background-size: 150% 100%;
+        animation: loading-shimmer 0.9s linear infinite;
+      }
+
+      @keyframes loading-shimmer {
+        0% { background-position: -150% 0; }
+        100% { background-position: 150% 0; }
+      }
+
+      /* Professional input focus states */
+      .input-professional:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        transform: scale(1.02);
+      }
+
+      /* Enhanced card effects */
+      .card-hover {
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+      }
+
+      /* Professional progress indicators */
+      .progress-ring {
+        transform: rotate(-90deg);
+      }
+
+      .progress-ring circle {
+        transition: stroke-dashoffset 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Enhanced notification styles */
+
+      .notification-slide {
+        animation: slideInRight 0.28s ease;
+      }
+
+      .notification-slide.hide {
+        animation: slideOutRight 0.18s ease;
+      }
+
+      @keyframes slideOutRight {
+        to {
+          opacity: 0;
+          transform: translateX(100px);
+        }
+      }
     </style>
   </head>
 
@@ -514,7 +835,7 @@
                     name="test-name"
                     required
                     placeholder="পরীক্ষার নাম লিখুন"
-                    class="w-full px-3 py-2 sm:px-4 sm:py-3 border-2 border-white/30 rounded-xl bg-white/80 glass-morphism text-sm sm:text-base transition-all duration-300 focus:outline-none focus:border-blue-600 focus:shadow-lg focus:shadow-blue-600/30 focus:-translate-y-0.5 font-hind"
+                    class="w-full px-3 py-2 sm:px-4 sm:py-3 border-2 border-white/30 rounded-xl bg-white/80 glass-morphism text-sm sm:text-base transition-all duration-300 focus:outline-none focus:border-blue-600 focus:shadow-lg focus:shadow-blue-600/30 focus:-translate-y-0.5 font-hind mobile-form-field touch-target"
                     aria-describedby="test-name-help"
                   />
                   <div id="test-name-help" class="sr-only">
@@ -643,11 +964,27 @@
             <div class="text-center mt-4">
               <button
                 id="view-history"
-                class="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-blue-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 font-hind text-sm sm:text-lg"
+                class="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-blue-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 font-hind text-sm sm:text-lg mr-2 mb-2"
                 aria-label="View exam history"
               >
                 <i class="fas fa-history mr-2" aria-hidden="true"></i> ইতিহাস
                 দেখুন
+              </button>
+              <button
+                id="export-data"
+                class="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-green-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 font-hind text-sm sm:text-lg mr-2 mb-2"
+                aria-label="Export exam data"
+                title="সমস্ত পরীক্ষার ডেটা রপ্তানি করুন"
+              >
+                <i class="fas fa-download mr-2" aria-hidden="true"></i> রপ্তানি
+              </button>
+              <button
+                id="import-data"
+                class="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-purple-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 font-hind text-sm sm:text-lg mb-2"
+                aria-label="Import exam data"
+                title="পূর্ববর্তী ডেটা আমদানি করুন"
+              >
+                <i class="fas fa-upload mr-2" aria-hidden="true"></i> আমদানি
               </button>
             </div>
           </div>
@@ -780,12 +1117,20 @@
           <!-- Floating Summary Button -->
           <div
             id="floating-summary"
-            class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 w-14 h-14 sm:w-16 sm:h-16 bg-gradient-primary border-4 border-white rounded-full shadow-2xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 z-50 touch-manipulation"
+            class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 w-14 h-14 sm:w-16 sm:h-16 bg-gradient-primary border-4 border-white rounded-full shadow-2xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 z-50 touch-manipulation touch-target touch-optimize mobile-floating-bottom"
             role="button"
             aria-label="Toggle question summary"
             tabindex="0"
           >
-            <i class="fas fa-list-check text-white text-lg sm:text-xl"></i>
+            <i
+              class="fas fa-list-check text-white text-lg sm:text-xl icon-sharp"
+            ></i>
+            <!-- Progress indicator for mobile -->
+            <div
+              class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold"
+            >
+              <span id="floating-answered-count">0</span>
+            </div>
           </div>
 
           <section
@@ -1012,6 +1357,11 @@
 
       class ExamApp {
         constructor() {
+          // Performance monitoring
+          this.performanceStart = performance.now();
+          this.isLoading = false;
+          this.domCache = new Map();
+
           this.testData = {
             name: "",
             mcqNumber: 0,
@@ -1023,8 +1373,169 @@
           this.retakeData = null;
           this.summaryVisible = false;
           this.eventListeners = new Map();
+          this.flaggedQuestions = new Set();
+
+          // Initialize performance tracking
+          this.trackPerformance();
+
+          // Load saved flagged questions
+          const savedFlags = this.safeLocalStorageGet("flaggedQuestions", []);
+          this.flaggedQuestions = new Set(savedFlags);
 
           this.init();
+        }
+
+        // Enhanced DOM element caching system
+        cacheElement(key, id) {
+          const element = document.getElementById(id);
+          if (element) {
+            this.domCache.set(key, element);
+            return element;
+          }
+          return null;
+        }
+
+        getCachedElement(key) {
+          return (
+            this.domCache.get(key) ||
+            document.getElementById(key.replace("cache-", ""))
+          );
+        }
+
+        refreshCache() {
+          // Refresh cached elements that may have been recreated
+          this.cacheElement("timer", "timer");
+          this.cacheElement("timer-compact", "timer-compact");
+          this.cacheElement("floating-summary", "floating-summary");
+          this.cacheElement("answered-count", "answered-count");
+        }
+
+        // Performance tracking
+        trackPerformance() {
+          try {
+            // Track key performance metrics
+            this.performanceMetrics = {
+              domReady: 0,
+              testsLoaded: 0,
+              firstInteraction: 0,
+              memoryUsage: 0,
+            };
+
+            // Monitor memory usage periodically (only if supported)
+            if ("memory" in performance) {
+              this.memoryMonitor = setInterval(() => {
+                this.performanceMetrics.memoryUsage =
+                  performance.memory.usedJSHeapSize / 1024 / 1024; // MB
+
+                // Warn if memory usage is high
+                if (this.performanceMetrics.memoryUsage > 50) {
+                  console.warn(
+                    "High memory usage detected:",
+                    Math.round(this.performanceMetrics.memoryUsage) + "MB",
+                  );
+                }
+              }, 60000); // Check every minute
+            }
+
+            // Track DOM ready time
+            if (document.readyState === "complete") {
+              this.performanceMetrics.domReady =
+                performance.now() - this.performanceStart;
+            } else {
+              document.addEventListener("DOMContentLoaded", () => {
+                this.performanceMetrics.domReady =
+                  performance.now() - this.performanceStart;
+              });
+            }
+          } catch (error) {
+            console.warn("Performance tracking not available:", error);
+          }
+        }
+
+        // Optimized loading state management
+        setLoadingState(isLoading, message = "") {
+          this.isLoading = isLoading;
+
+          try {
+            let loadingOverlay = document.getElementById("loading-overlay");
+
+            if (isLoading) {
+              if (!loadingOverlay) {
+                loadingOverlay = document.createElement("div");
+                loadingOverlay.id = "loading-overlay";
+                loadingOverlay.className =
+                  "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100] touch-optimize";
+                loadingOverlay.innerHTML = `
+                  <div class="bg-white rounded-lg p-6 max-w-sm w-full mx-4 text-center shadow-2xl">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <div id="loading-message" class="text-gray-700 font-hind text-sm sm:text-base">${message || "লোড হচ্ছে..."}</div>
+                    <div id="loading-progress" class="w-full bg-gray-200 rounded-full h-2 mt-3">
+                      <div id="loading-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                  </div>
+                `;
+                document.body.appendChild(loadingOverlay);
+              } else {
+                loadingOverlay.style.display = "flex";
+                const messageEl =
+                  loadingOverlay.querySelector("#loading-message");
+                if (messageEl && message) {
+                  messageEl.textContent = message;
+                }
+              }
+            } else {
+              if (loadingOverlay) {
+                loadingOverlay.style.display = "none";
+              }
+            }
+          } catch (error) {
+            console.error("Error managing loading state:", error);
+          }
+        }
+
+        updateLoadingProgress(percentage) {
+          try {
+            const progressBar = document.getElementById("loading-bar");
+            if (progressBar) {
+              progressBar.style.width = `${Math.max(0, Math.min(100, percentage))}%`;
+            }
+          } catch (error) {
+            console.error("Error updating loading progress:", error);
+          }
+        }
+
+        // Cleanup method for memory management
+        cleanup() {
+          try {
+            // Clear timer
+            if (this.timerInterval) {
+              clearInterval(this.timerInterval);
+              this.timerInterval = null;
+            }
+
+            // Clear memory monitor
+            if (this.memoryMonitor) {
+              clearInterval(this.memoryMonitor);
+              this.memoryMonitor = null;
+            }
+
+            // Clear all event listeners
+            this.eventListeners.forEach((handler, key) => {
+              const [elementId, event] = key.split("-");
+              const element = document.getElementById(elementId);
+              if (element && handler) {
+                element.removeEventListener(event, handler);
+              }
+            });
+            this.eventListeners.clear();
+
+            // Clear DOM cache
+            this.domCache.clear();
+
+            console.log("ExamApp cleaned up successfully");
+          } catch (error) {
+            console.error("Error during cleanup:", error);
+          }
         }
 
         init() {
@@ -1032,6 +1543,375 @@
           this.showSection("configuration-section");
           initDateTimeUpdate();
         }
+
+        // Data Export/Import Functionality
+        exportData() {
+          try {
+            this.setLoadingState(true, "ডেটা রপ্তানি করা হচ্ছে...");
+
+            // Collect all data to export
+            const exportData = {
+              metadata: {
+                exportDate: new Date().toISOString(),
+                appVersion: "1.0.0",
+                exportType: "full",
+                totalTests: 0,
+              },
+              examHistory: this.safeLocalStorageGet("examHistory", []),
+              flaggedQuestions: Array.from(this.flaggedQuestions),
+              userPreferences: {
+                flaggedQuestions: this.safeLocalStorageGet(
+                  "flaggedQuestions",
+                  [],
+                ),
+              },
+            };
+
+            exportData.metadata.totalTests = exportData.examHistory.length;
+
+            // Create downloadable JSON file
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: "application/json" });
+
+            // Create download link
+            const downloadUrl = URL.createObjectURL(dataBlob);
+            const downloadLink = document.createElement("a");
+            downloadLink.href = downloadUrl;
+            downloadLink.download = `exam-data-backup-${new Date().toISOString().split("T")[0]}.json`;
+
+            // Trigger download
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+
+            // Clean up URL
+            URL.revokeObjectURL(downloadUrl);
+
+            this.setLoadingState(false);
+            this.showUserMessage(
+              `${exportData.metadata.totalTests}টি পরীক্ষার ডেটা রপ্তানি সফল হয়েছে।`,
+              "success",
+            );
+
+            // Track export for analytics
+            if (this.performanceMetrics) {
+              this.performanceMetrics.exportsCompleted =
+                (this.performanceMetrics.exportsCompleted || 0) + 1;
+            }
+          } catch (error) {
+            console.error("Export error:", error);
+            this.setLoadingState(false);
+            this.showUserMessage("ডেটা রপ্তানিতে সমস্যা হয়েছে।", "error");
+          }
+        }
+
+        importData() {
+          try {
+            // Create file input element
+            const fileInput = document.createElement("input");
+            fileInput.type = "file";
+            fileInput.accept = ".json,application/json";
+            fileInput.style.display = "none";
+
+            fileInput.addEventListener("change", (e) => {
+              const file = e.target.files[0];
+              if (!file) return;
+
+              this.setLoadingState(true, "ডেটা আমদানি করা হচ্ছে...");
+
+              const reader = new FileReader();
+              reader.onload = (event) => {
+                try {
+                  const importedData = JSON.parse(event.target.result);
+                  this.processImportedData(importedData);
+                } catch (parseError) {
+                  console.error("Import parse error:", parseError);
+                  this.setLoadingState(false);
+                  this.showUserMessage(
+                    "ফাইল পড়তে সমস্যা হয়েছে। সঠিক JSON ফাইল নির্বাচন করুন।",
+                    "error",
+                  );
+                }
+              };
+
+              reader.onerror = () => {
+                this.setLoadingState(false);
+                this.showUserMessage("ফাইল পড়তে সমস্যা হয়েছে।", "error");
+              };
+
+              reader.readAsText(file);
+            });
+
+            document.body.appendChild(fileInput);
+            fileInput.click();
+            document.body.removeChild(fileInput);
+          } catch (error) {
+            console.error("Import setup error:", error);
+            this.showUserMessage(
+              "ডেটা আমদানি শুরু করতে সমস্যা হয়েছে।",
+              "error",
+            );
+          }
+        }
+
+        processImportedData(importedData) {
+          try {
+            // Validate imported data structure
+            if (!this.validateImportData(importedData)) {
+              this.setLoadingState(false);
+              this.showUserMessage(
+                "আমদানিকৃত ডেটার ফরম্যাট সঠিক নয়।",
+                "error",
+              );
+              return;
+            }
+
+            // Ask user for import preferences
+            this.showImportOptions(importedData);
+          } catch (error) {
+            console.error("Import processing error:", error);
+            this.setLoadingState(false);
+            this.showUserMessage("ডেটা প্রক্রিয়াকরণে সমস্যা হয়েছে।", "error");
+          }
+        }
+
+        validateImportData(data) {
+          try {
+            // Check required structure
+            return (
+              data &&
+              data.metadata &&
+              Array.isArray(data.examHistory) &&
+              data.metadata.exportDate &&
+              data.metadata.appVersion
+            );
+          } catch (error) {
+            console.error("Validation error:", error);
+            return false;
+          }
+        }
+
+        showImportOptions(importedData) {
+          const modal = document.createElement("div");
+          modal.className =
+            "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[110] p-4";
+          modal.innerHTML = `
+            <div class="bg-white rounded-lg max-w-md w-full p-6 font-hind">
+              <h3 class="text-xl font-bold mb-4 text-gray-800">
+                <i class="fas fa-download text-blue-600 mr-2"></i>ডেটা আমদানি
+              </h3>
+              <div class="mb-4">
+                <p class="text-sm text-gray-600 mb-3">
+                  আমদানিকৃত ডেটা: <strong>${importedData.examHistory.length}টি পরীক্ষা</strong><br>
+                  রপ্তানির তারিখ: <strong>${new Date(importedData.metadata.exportDate).toLocaleDateString("bn-BD")}</strong>
+                </p>
+                <div class="space-y-2">
+                  <label class="flex items-center">
+                    <input type="radio" name="importMode" value="merge" checked class="mr-2">
+                    <span class="text-sm">বিদ্যমান ডেটার সাথে যুক্ত করুন</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" name="importMode" value="replace" class="mr-2">
+                    <span class="text-sm">বিদ্যমান ডেটা প্রতিস্থাপন করুন</span>
+                  </label>
+                </div>
+              </div>
+              <div class="flex gap-3 justify-end">
+                <button id="cancelImport" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors">
+                  বাতিল
+                </button>
+                <button id="confirmImport" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                  আমদানি করুন
+                </button>
+              </div>
+            </div>
+          `;
+
+          document.body.appendChild(modal);
+
+          // Handle cancel
+          modal.querySelector("#cancelImport").addEventListener("click", () => {
+            document.body.removeChild(modal);
+            this.setLoadingState(false);
+          });
+
+          // Handle confirm
+          modal
+            .querySelector("#confirmImport")
+            .addEventListener("click", () => {
+              const importMode = modal.querySelector(
+                'input[name="importMode"]:checked',
+              ).value;
+              document.body.removeChild(modal);
+              this.executeImport(importedData, importMode);
+            });
+
+          // Close on background click
+          modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+              document.body.removeChild(modal);
+              this.setLoadingState(false);
+            }
+          });
+        }
+
+        executeImport(importedData, importMode) {
+          try {
+            let currentHistory = this.safeLocalStorageGet("examHistory", []);
+            let importedHistory = importedData.examHistory || [];
+            let finalHistory = [];
+
+            if (importMode === "replace") {
+              finalHistory = importedHistory;
+              this.showUserMessage(
+                "পুরানো ডেটা প্রতিস্থাপিত হয়েছে।",
+                "warning",
+              );
+            } else {
+              // Merge mode - avoid duplicates by checking timestamps and names
+              finalHistory = [...currentHistory];
+              let newTestsCount = 0;
+
+              importedHistory.forEach((importedTest) => {
+                const isDuplicate = currentHistory.some(
+                  (existingTest) =>
+                    existingTest.timestamp === importedTest.timestamp &&
+                    existingTest.testName === importedTest.testName,
+                );
+
+                if (!isDuplicate) {
+                  finalHistory.push(importedTest);
+                  newTestsCount++;
+                }
+              });
+
+              this.showUserMessage(
+                `${newTestsCount}টি নতুন পরীক্ষা যুক্ত হয়েছে।`,
+                "success",
+              );
+            }
+
+            // Save merged/replaced data
+            if (!this.safeLocalStorageSet("examHistory", finalHistory)) {
+              throw new Error("Failed to save exam history");
+            }
+
+            // Import flagged questions if available
+            if (
+              importedData.userPreferences &&
+              importedData.userPreferences.flaggedQuestions
+            ) {
+              const currentFlags = this.safeLocalStorageGet(
+                "flaggedQuestions",
+                [],
+              );
+              const importedFlags =
+                importedData.userPreferences.flaggedQuestions;
+
+              if (importMode === "replace") {
+                this.safeLocalStorageSet("flaggedQuestions", importedFlags);
+                this.flaggedQuestions = new Set(importedFlags);
+              } else {
+                const mergedFlags = [
+                  ...new Set([...currentFlags, ...importedFlags]),
+                ];
+                this.safeLocalStorageSet("flaggedQuestions", mergedFlags);
+                this.flaggedQuestions = new Set(mergedFlags);
+              }
+            }
+
+            this.setLoadingState(false);
+            this.showUserMessage(
+              "ডেটা আমদানি সফল হয়েছে! পৃষ্ঠা রিলোড করুন।",
+              "success",
+            );
+
+            // Refresh history if currently viewing
+            if (this.currentTab === "history") {
+              setTimeout(() => {
+                this.loadHistory();
+              }, 2000);
+            }
+          } catch (error) {
+            console.error("Import execution error:", error);
+            this.setLoadingState(false);
+            this.showUserMessage("ডেটা সংরক্ষণে সমস্যা হয়েছে।", "error");
+          }
+        }
+
+        // Quick export for current test only
+        exportCurrentTest() {
+          try {
+            if (!this.testData || !this.testData.name) {
+              this.showUserMessage("কোন পরীক্ষা চলমান নেই।", "warning");
+              return;
+            }
+
+            // Collect current test progress
+            const currentProgress = {
+              testData: this.testData,
+              answers: this.collectCurrentAnswers(),
+              timeRemaining: this.timeRemaining,
+              timestamp: new Date().toISOString(),
+              flaggedQuestions: Array.from(this.flaggedQuestions),
+            };
+
+            // Create JSON file
+            const dataStr = JSON.stringify(currentProgress, null, 2);
+            const dataBlob = new Blob([dataStr], { type: "application/json" });
+            const downloadUrl = URL.createObjectURL(dataBlob);
+            const downloadLink = document.createElement("a");
+            downloadLink.href = downloadUrl;
+            downloadLink.download = `current-test-${this.testData.name}-${new Date().toISOString().split("T")[0]}.json`;
+
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(downloadUrl);
+
+            this.showUserMessage(
+              "বর্তমান পরীক্ষার ডেটা রপ্তানি করা হয়েছে।",
+              "success",
+            );
+          } catch (error) {
+            console.error("Current test export error:", error);
+            this.showUserMessage(
+              "বর্তমান পরীক্ষা রপ্তানিতে সমস্যা হয়েছে।",
+              "error",
+            );
+          }
+        }
+
+        collectCurrentAnswers() {
+          const answers = {};
+          try {
+            for (let i = 1; i <= this.testData.mcqNumber; i++) {
+              const selectedOption = document.querySelector(
+                `input[name="q${i}"]:checked`,
+              );
+              if (selectedOption) {
+                answers[i] = selectedOption.value;
+              }
+            }
+          } catch (error) {
+            console.error("Error collecting answers:", error);
+          }
+          return answers;
+        }
+
+        escapeHtml(text) {
+          const map = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;",
+          };
+          return text.replace(/[&<>"']/g, function (m) {
+            return map[m];
+          });
+        }
+
         showSection(sectionId) {
           const sections = [
             "configuration-section",
@@ -1056,22 +1936,146 @@
         }
         safeLocalStorageGet(key, defaultValue = null) {
           try {
+            // Check if localStorage is available
+            if (typeof Storage === "undefined") {
+              console.warn("localStorage is not supported by this browser");
+              return defaultValue;
+            }
+
             const item = localStorage.getItem(key);
-            return item ? JSON.parse(item) : defaultValue;
+            if (item === null) return defaultValue;
+
+            const parsed = JSON.parse(item);
+            return parsed;
           } catch (error) {
             console.error("Error reading from localStorage:", error);
+
+            // Try to recover from corrupted data
+            try {
+              localStorage.removeItem(key);
+            } catch (removeError) {
+              console.error("Could not remove corrupted data:", removeError);
+            }
+
+            // Show user-friendly error message
+            if (key === "examHistory") {
+              this.showUserMessage(
+                "পরীক্ষার ইতিহাস লোড করতে সমস্যা হয়েছে। দুঃখিত!",
+                "error",
+              );
+            } else if (key === "currentTestProgress") {
+              this.showUserMessage(
+                "সংরক্ষিত অগ্রগতি পুনরুদ্ধার করা যায়নি।",
+                "warning",
+              );
+            }
+
             return defaultValue;
           }
         }
 
         safeLocalStorageSet(key, value) {
           try {
-            localStorage.setItem(key, JSON.stringify(value));
+            // Check if localStorage is available
+            if (typeof Storage === "undefined") {
+              console.warn("localStorage is not supported by this browser");
+              this.showUserMessage(
+                "আপনার ব্রাউজার ডেটা সংরক্ষণ সমর্থন করে না।",
+                "error",
+              );
+              return false;
+            }
+
+            // Check available storage space
+            const stringified = JSON.stringify(value);
+            const sizeInBytes = new Blob([stringified]).size;
+
+            // If trying to save large data, warn user
+            if (sizeInBytes > 1024 * 1024) {
+              // 1MB
+              this.showUserMessage(
+                "ডেটা আকার বড়। সংরক্ষণে সময় লাগতে পারে।",
+                "info",
+              );
+            }
+
+            localStorage.setItem(key, stringified);
             return true;
           } catch (error) {
             console.error("Error writing to localStorage:", error);
-            alert("Failed to save data. Storage might be full.");
+
+            let userMessage = "ডেটা সংরক্ষণ করতে সমস্যা হয়েছে।";
+
+            if (error.name === "QuotaExceededError") {
+              userMessage =
+                "স্টোরেজ পূর্ণ! কিছু পুরানো ডেটা মুছে নতুন করে চেষ্টা করুন।";
+
+              // Try to clean up old data automatically
+              this.cleanupOldData();
+            } else if (error.name === "SecurityError") {
+              userMessage = "নিরাপত্তা সেটিংসের কারণে ডেটা সংরক্ষণ করা যায়নি।";
+            }
+
+            this.showUserMessage(userMessage, "error");
             return false;
+          }
+        }
+
+        cleanupOldData() {
+          try {
+            const tests = this.safeLocalStorageGet("examHistory", []);
+            if (tests.length > 50) {
+              // Keep only the latest 30 tests
+              const recentTests = tests.slice(-30);
+              this.safeLocalStorageSet("examHistory", recentTests);
+              this.showUserMessage("পুরানো ডেটা সাফ করা হয়েছে।", "success");
+            }
+          } catch (error) {
+            console.error("Error during cleanup:", error);
+          }
+        }
+
+        showUserMessage(message, type = "info") {
+          // Create or update notification system
+          let notification = document.getElementById("user-notification");
+          if (!notification) {
+            notification = document.createElement("div");
+            notification.id = "user-notification";
+            notification.className =
+              "fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 max-w-sm";
+            notification.setAttribute("role", "alert");
+            notification.setAttribute("aria-live", "polite");
+            document.body.appendChild(notification);
+          }
+
+          // Set colors based on type
+          const colors = {
+            error: "bg-red-500 text-white border-red-600",
+            warning: "bg-yellow-500 text-black border-yellow-600",
+            success: "bg-green-500 text-white border-green-600",
+            info: "bg-blue-500 text-white border-blue-600",
+          };
+
+          notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 max-w-sm border-2 ${colors[type] || colors.info}`;
+          notification.innerHTML = `
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <i class="fas fa-${type === "error" ? "exclamation-triangle" : type === "success" ? "check-circle" : type === "warning" ? "exclamation-circle" : "info-circle"} mr-2"></i>
+                <span class="font-hind text-sm">${message}</span>
+              </div>
+              <button onclick="this.parentElement.parentElement.style.display='none'" class="ml-2 text-lg font-bold hover:opacity-70">×</button>
+            </div>
+          `;
+
+          notification.style.display = "block";
+
+          // Auto-hide after 5 seconds for non-error messages
+          if (type !== "error") {
+            setTimeout(() => {
+              if (notification) {
+                notification.style.display = "none";
+              }
+            }, 5000);
           }
         }
         addEventListener(elementId, event, handler) {
@@ -1101,36 +2105,181 @@
           event.preventDefault();
 
           try {
-            this.testData.name = document
-              .getElementById("test-name")
-              .value.trim();
-            this.testData.mcqNumber = parseInt(
-              document.getElementById("mcq-number").value,
-            );
-            this.testData.timeLimit = parseInt(
-              document.getElementById("time-limit").value,
-            );
-            this.testData.marksPerQuestion = parseFloat(
-              document.getElementById("marks-per-question").value,
-            );
-            this.testData.negativeMarkingValue = parseFloat(
-              document.getElementById("negative-marking-value").value,
-            );
-            if (!this.testData.name) {
-              alert("পরীক্ষার নাম প্রয়োজন।");
-              return;
-            }
-            if (this.testData.mcqNumber < 1 || this.testData.mcqNumber > 100) {
-              alert("প্রশ্নের সংখ্যা 1 থেকে 100 এর মধ্যে হতে হবে।");
-              return;
-            }
+            // Clear previous error styles
+            this.clearFormErrors();
 
+            // Validate and collect form data
+            const formData = this.validateFormData();
+            if (!formData) return; // Validation failed
+
+            this.testData = formData;
             this.showSection("test-section");
             this.generateTestInterface();
             this.startTimer();
           } catch (error) {
-            alert("ফর্ম জমা দেওয়ার সময় একটি ত্রুটি ঘটেছে.");
+            console.error("Form submission error:", error);
+            this.showError("ফর্ম জমা দেওয়ার সময় একটি ত্রুটি ঘটেছে।");
           }
+        }
+
+        clearFormErrors() {
+          const inputs = document.querySelectorAll("#test-form input");
+          inputs.forEach((input) => {
+            input.classList.remove("border-red-500");
+            const errorDiv =
+              input.parentElement.querySelector(".error-message");
+            if (errorDiv) errorDiv.remove();
+          });
+        }
+
+        showFieldError(fieldId, message) {
+          const field = document.getElementById(fieldId);
+          if (!field) return;
+
+          field.classList.add("border-red-500");
+          const errorDiv = document.createElement("div");
+          errorDiv.className =
+            "error-message text-red-600 text-sm mt-1 font-hind";
+          errorDiv.textContent = message;
+          field.parentElement.appendChild(errorDiv);
+          field.focus();
+        }
+
+        showError(message) {
+          alert(message);
+        }
+
+        validateFormData() {
+          const name = document.getElementById("test-name").value.trim();
+          const mcqNumber = document.getElementById("mcq-number").value.trim();
+          const timeLimit = document.getElementById("time-limit").value.trim();
+          const marksPerQuestion = document
+            .getElementById("marks-per-question")
+            .value.trim();
+          const negativeMarkingValue = document
+            .getElementById("negative-marking-value")
+            .value.trim();
+
+          // Test name validation
+          if (!name) {
+            this.showFieldError("test-name", "পরীক্ষার নাম অবশ্যই দিতে হবে।");
+            return null;
+          }
+          if (name.length < 2) {
+            this.showFieldError(
+              "test-name",
+              "পরীক্ষার নাম কমপক্ষে ২টি অক্ষর হতে হবে।",
+            );
+            return null;
+          }
+          if (name.length > 100) {
+            this.showFieldError(
+              "test-name",
+              "পরীক্ষার নাম সর্বোচ্চ ১০০ অক্ষর হতে পারে।",
+            );
+            return null;
+          }
+
+          // MCQ number validation
+          if (!mcqNumber) {
+            this.showFieldError(
+              "mcq-number",
+              "প্রশ্নের সংখ্যা অবশ্যই দিতে হবে।",
+            );
+            return null;
+          }
+          const parsedMcqNumber = parseInt(mcqNumber);
+          if (isNaN(parsedMcqNumber) || parsedMcqNumber < 1) {
+            this.showFieldError(
+              "mcq-number",
+              "প্রশ্নের সংখ্যা কমপক্ষে ১ হতে হবে।",
+            );
+            return null;
+          }
+          if (parsedMcqNumber > 100) {
+            this.showFieldError(
+              "mcq-number",
+              "প্রশ্নের সংখ্যা সর্বোচ্চ ১০০ হতে পারে।",
+            );
+            return null;
+          }
+
+          // Time limit validation
+          if (!timeLimit) {
+            this.showFieldError("time-limit", "সময়সীমা অবশ্যই দিতে হবে।");
+            return null;
+          }
+          const parsedTimeLimit = parseInt(timeLimit);
+          if (isNaN(parsedTimeLimit) || parsedTimeLimit < 1) {
+            this.showFieldError(
+              "time-limit",
+              "সময়সীমা কমপক্ষে ১ মিনিট হতে হবে।",
+            );
+            return null;
+          }
+          if (parsedTimeLimit > 300) {
+            this.showFieldError(
+              "time-limit",
+              "সময়সীমা সর্বোচ্চ ৩০০ মিনিট হতে পারে।",
+            );
+            return null;
+          }
+
+          // Marks per question validation
+          if (!marksPerQuestion) {
+            this.showFieldError(
+              "marks-per-question",
+              "প্রশ্ন প্রতি নাম্বার অবশ্যই দিতে হবে।",
+            );
+            return null;
+          }
+          const parsedMarksPerQuestion = parseFloat(marksPerQuestion);
+          if (isNaN(parsedMarksPerQuestion) || parsedMarksPerQuestion < 0) {
+            this.showFieldError(
+              "marks-per-question",
+              "প্রশ্ন প্রতি নাম্বার ০ বা তার বেশি হতে হবে।",
+            );
+            return null;
+          }
+          if (parsedMarksPerQuestion > 10) {
+            this.showFieldError(
+              "marks-per-question",
+              "প্রশ্ন প্রতি নাম্বার সর্বোচ্চ ১০ হতে পারে।",
+            );
+            return null;
+          }
+
+          // Negative marking validation
+          if (!negativeMarkingValue) {
+            this.showFieldError(
+              "negative-marking-value",
+              "নেগেটিভ মার্কিং মান অবশ্যই দিতে হবে।",
+            );
+            return null;
+          }
+          const parsedNegativeMarking = parseFloat(negativeMarkingValue);
+          if (isNaN(parsedNegativeMarking) || parsedNegativeMarking < 0) {
+            this.showFieldError(
+              "negative-marking-value",
+              "নেগেটিভ মার্কিং মান ০ বা তার বেশি হতে হবে।",
+            );
+            return null;
+          }
+          if (parsedNegativeMarking > parsedMarksPerQuestion) {
+            this.showFieldError(
+              "negative-marking-value",
+              "নেগেটিভ মার্কিং মান প্রশ্ন প্রতি নাম্বারের চেয়ে বেশি হতে পারে না।",
+            );
+            return null;
+          }
+
+          return {
+            name: name,
+            mcqNumber: parsedMcqNumber,
+            timeLimit: parsedTimeLimit,
+            marksPerQuestion: parsedMarksPerQuestion,
+            negativeMarkingValue: parsedNegativeMarking,
+          };
         }
         generateTestInterface() {
           this.generateTestDetails();
@@ -1155,28 +2304,38 @@
                     <i class="fas fa-list text-sm sm:text-base md:text-lg"></i>
                   </div>
                   <div class="font-semibold text-gray-700 text-xs sm:text-sm mb-1 font-hind">মোট প্রশ্ন</div>
-                  <div class="text-lg sm:text-xl md:text-2xl font-bold text-blue-600">${this.testData.mcqNumber}</div>
+                  <div class="text-lg sm:text-xl md:text-2xl font-bold text-blue-600">${
+                    this.testData.mcqNumber
+                  }</div>
                 </div>
                 <div class="bg-white p-2 sm:p-3 md:p-4 rounded-lg border border-green-200 text-center shadow-sm hover:shadow-md transition-shadow">
                   <div class="bg-green-500 text-white p-1.5 sm:p-2 rounded-full mb-1 sm:mb-2 inline-block">
                     <i class="fas fa-hourglass-half text-sm sm:text-base md:text-lg"></i>
                   </div>
                   <div class="font-semibold text-gray-700 text-xs sm:text-sm mb-1 font-hind">সময়সীমা</div>
-                  <div class="text-lg sm:text-xl md:text-2xl font-bold text-green-600">${this.testData.timeLimit} মিনিট</div>
+                  <div class="text-lg sm:text-xl md:text-2xl font-bold text-green-600">${
+                    this.testData.timeLimit
+                  } মিনিট</div>
                 </div>
                 <div class="bg-white p-2 sm:p-3 md:p-4 rounded-lg border border-yellow-200 text-center shadow-sm hover:shadow-md transition-shadow">
                   <div class="bg-yellow-500 text-white p-1.5 sm:p-2 rounded-full mb-1 sm:mb-2 inline-block">
                     <i class="fas fa-star text-sm sm:text-base md:text-lg"></i>
                   </div>
                   <div class="font-semibold text-gray-700 text-xs sm:text-sm mb-1 font-hind">প্রশ্ন প্রতি নাম্বার</div>
-                  <div class="text-lg sm:text-xl md:text-2xl font-bold text-yellow-600">${this.testData.marksPerQuestion}</div>
+                  <div class="text-lg sm:text-xl md:text-2xl font-bold text-yellow-600">${
+                    this.testData.marksPerQuestion
+                  }</div>
                 </div>
                 <div class="bg-white p-2 sm:p-3 md:p-4 rounded-lg border border-red-200 text-center shadow-sm hover:shadow-md transition-shadow col-span-3 sm:col-span-1">
                   <div class="bg-red-500 text-white p-1.5 sm:p-2 rounded-full mb-1 sm:mb-2 inline-block">
                     <i class="fas fa-exclamation-triangle text-sm sm:text-base md:text-lg"></i>
                   </div>
                   <div class="font-semibold text-gray-700 text-xs sm:text-sm mb-1 font-hind">নেগেটিভ মার্কিং</div>
-                  <div class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">${this.testData.negativeMarkingValue > 0 ? this.testData.negativeMarkingValue : "বন্ধ"}</div>
+                  <div class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">${
+                    this.testData.negativeMarkingValue > 0
+                      ? this.testData.negativeMarkingValue
+                      : "বন্ধ"
+                  }</div>
                 </div>
               </div>
             </div>
@@ -1184,9 +2343,15 @@
         }
 
         generateMCQs() {
-          const mcqContainer = document.getElementById("mcq-container");
-          if (!mcqContainer) return;
+          this.setLoadingState(true, "প্রশ্ন তৈরি করা হচ্ছে...");
 
+          const mcqContainer = document.getElementById("mcq-container");
+          if (!mcqContainer) {
+            this.setLoadingState(false);
+            return;
+          }
+
+          // Clear container efficiently
           mcqContainer.innerHTML = "";
 
           // Check for saved test progress
@@ -1199,39 +2364,220 @@
               ? savedProgress.answers
               : {};
 
-          for (let i = 1; i <= this.testData.mcqNumber; i++) {
-            const mcqDiv = document.createElement("div");
-            mcqDiv.className =
-              "flex flex-col md:flex-row md:items-center justify-between mb-2 sm:mb-3 md:mb-4 lg:mb-5 gap-2 sm:gap-3 md:gap-4 p-2 sm:p-3 md:p-4 lg:p-5 border border-white/30 rounded-lg sm:rounded-xl bg-white/80 glass-morphism shadow-md sm:shadow-lg transition-all duration-300 hover:shadow-lg sm:hover:shadow-xl hover:-translate-y-0.5";
-            mcqDiv.setAttribute("id", `mcq-${i}`);
+          try {
+            // Use document fragment for better performance
+            const fragment = document.createDocumentFragment();
+            const batchSize = 20; // Process questions in batches for large numbers
+            let currentBatch = 0;
 
-            const savedAnswer = savedAnswers[i] || "";
-            const checkedA = savedAnswer === "A" ? "checked" : "";
-            const checkedB = savedAnswer === "B" ? "checked" : "";
-            const checkedC = savedAnswer === "C" ? "checked" : "";
-            const checkedD = savedAnswer === "D" ? "checked" : "";
+            const processBatch = () => {
+              const startIndex = currentBatch * batchSize + 1;
+              const endIndex = Math.min(
+                (currentBatch + 1) * batchSize,
+                this.testData.mcqNumber,
+              );
 
-            mcqDiv.innerHTML = `
-              <p class="flex-1 md:mr-4 font-semibold text-gray-700 mb-1 sm:mb-2 md:mb-0 min-w-0 font-hind text-xs sm:text-sm md:text-base">
-                <i class="fas fa-question-circle text-blue-600 mr-1 sm:mr-2 text-xs sm:text-sm" aria-hidden="true"></i>
-                প্রশ্ন ${i}:
-              </p>
-              <div class="flex gap-1 sm:gap-2 md:gap-3 flex-wrap md:flex-nowrap items-center justify-center sm:justify-start" role="radiogroup" aria-label="Question ${i} options">
-                <input type="radio" name="q${i}" value="A" class="radio-custom w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 relative m-0.5 sm:m-1 md:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[16px] sm:min-w-[20px] md:min-w-[24px] flex-shrink-0" ${checkedA} aria-label="Option A">
-                <input type="radio" name="q${i}" value="B" class="radio-custom w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 relative m-0.5 sm:m-1 md:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[16px] sm:min-w-[20px] md:min-w-[24px] flex-shrink-0" ${checkedB} aria-label="Option B">
-                <input type="radio" name="q${i}" value="C" class="radio-custom w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 relative m-0.5 sm:m-1 md:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[16px] sm:min-w-[20px] md:min-w-[24px] flex-shrink-0" ${checkedC} aria-label="Option C">
-                <input type="radio" name="q${i}" value="D" class="radio-custom w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 relative m-0.5 sm:m-1 md:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[16px] sm:min-w-[20px] md:min-w-[24px] flex-shrink-0" ${checkedD} aria-label="Option D">
-              </div>
-            `;
-            mcqContainer.appendChild(mcqDiv);
+              for (let i = startIndex; i <= endIndex; i++) {
+                this.updateLoadingProgress((i / this.testData.mcqNumber) * 100);
 
-            // Add auto-save event listeners
-            const radioButtons = mcqDiv.querySelectorAll(`input[name="q${i}"]`);
-            radioButtons.forEach((radio) => {
-              radio.addEventListener("change", () => {
-                this.saveTestProgress();
-              });
+                const mcqDiv = this.createMCQElement(i, savedAnswers[i] || "");
+                fragment.appendChild(mcqDiv);
+              }
+
+              // Append current batch to container
+              if (currentBatch === 0 || endIndex === this.testData.mcqNumber) {
+                mcqContainer.appendChild(fragment);
+              }
+
+              currentBatch++;
+
+              // Continue with next batch or finish
+              if (endIndex < this.testData.mcqNumber) {
+                // Use requestAnimationFrame for smooth UI updates
+                requestAnimationFrame(processBatch);
+              } else {
+                // All questions processed
+                this.setupMCQEventListeners();
+                this.setLoadingState(false);
+                this.refreshCache();
+                this.showUserMessage("প্রশ্ন তৈরি সম্পন্ন!", "success");
+              }
+            };
+
+            // Start processing
+            requestAnimationFrame(processBatch);
+          } catch (error) {
+            console.error("Error generating MCQs:", error);
+            this.setLoadingState(false);
+            this.showUserMessage("প্রশ্ন তৈরিতে সমস্যা হয়েছে।", "error");
+          }
+        }
+
+        // Optimized MCQ element creation
+        createMCQElement(questionNumber, savedAnswer = "") {
+          const mcqDiv = document.createElement("div");
+          mcqDiv.className =
+            "flex flex-col md:flex-row md:items-center justify-between mb-2 sm:mb-3 md:mb-4 lg:mb-5 gap-2 sm:gap-3 md:gap-4 p-2 sm:p-3 md:p-4 lg:p-5 border border-white/30 rounded-lg sm:rounded-xl bg-white/80 glass-morphism shadow-md sm:shadow-lg transition-all duration-300 hover:shadow-lg sm:hover:shadow-xl hover:-translate-y-0.5 mobile-mcq-option touch-spacing";
+          mcqDiv.setAttribute("id", `mcq-${questionNumber}`);
+          mcqDiv.setAttribute("data-question", questionNumber);
+
+          const checkedA = savedAnswer === "A" ? "checked" : "";
+          const checkedB = savedAnswer === "B" ? "checked" : "";
+          const checkedC = savedAnswer === "C" ? "checked" : "";
+          const checkedD = savedAnswer === "D" ? "checked" : "";
+
+          // Use template literal with optimized HTML structure
+          mcqDiv.innerHTML = `
+            <p class="flex-1 md:mr-4 font-semibold text-gray-700 mb-1 sm:mb-2 md:mb-0 min-w-0 font-hind text-xs sm:text-sm md:text-base">
+              <i class="fas fa-question-circle text-blue-600 mr-1 sm:mr-2 text-xs sm:text-sm icon-sharp" aria-hidden="true"></i>
+              প্রশ্ন ${questionNumber}:
+            </p>
+            <div class="flex gap-1 sm:gap-2 md:gap-3 flex-wrap md:flex-nowrap items-center justify-center sm:justify-start" role="radiogroup" aria-label="প্রশ্ন ${questionNumber} এর অপশন">
+              ${this.createRadioOption(questionNumber, "A", checkedA)}
+              ${this.createRadioOption(questionNumber, "B", checkedB)}
+              ${this.createRadioOption(questionNumber, "C", checkedC)}
+              ${this.createRadioOption(questionNumber, "D", checkedD)}
+            </div>
+          `;
+
+          return mcqDiv;
+        }
+
+        // Reusable radio option creation
+        createRadioOption(questionNumber, option, checked) {
+          return `<input type="radio" name="q${questionNumber}" value="${option}" 
+                    class="radio-custom w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 relative m-0.5 sm:m-1 md:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[16px] sm:min-w-[20px] md:min-w-[24px] flex-shrink-0 touch-target touch-optimize mobile-mcq-option" 
+                    ${checked} aria-label="অপশন ${option}" data-question="${questionNumber}" data-option="${option}">`;
+        }
+
+        // Optimized event listener setup
+        setupMCQEventListeners() {
+          try {
+            // Use event delegation for better performance
+            const mcqContainer = document.getElementById("mcq-container");
+            if (!mcqContainer) return;
+
+            // Single event listener for all radio buttons using delegation
+            const radioHandler = (e) => {
+              if (e.target.type === "radio") {
+                const questionNumber = e.target.dataset.question;
+                const option = e.target.dataset.option;
+
+                // Auto-save answer
+                this.saveCurrentProgress();
+
+                // Update summary if visible
+                if (this.summaryVisible) {
+                  const summaryContent =
+                    document.getElementById("summary-content");
+                  if (summaryContent) {
+                    this.updateSummary(summaryContent);
+                  }
+                }
+
+                // Update answered count
+                this.updateAnsweredCounts();
+              }
+            };
+
+            // Remove old listener if exists
+            const oldHandler = this.eventListeners.get("mcq-container-change");
+            if (oldHandler) {
+              mcqContainer.removeEventListener("change", oldHandler);
+            }
+
+            // Add new optimized listener
+            mcqContainer.addEventListener("change", radioHandler, {
+              passive: true,
             });
+            this.eventListeners.set("mcq-container-change", radioHandler);
+          } catch (error) {
+            console.error("Error setting up MCQ event listeners:", error);
+          }
+        }
+
+        // Debounced answer count update for performance
+        updateAnsweredCounts() {
+          if (this.countUpdateTimeout) {
+            clearTimeout(this.countUpdateTimeout);
+          }
+
+          this.countUpdateTimeout = setTimeout(() => {
+            try {
+              const answeredCount = document.getElementById("answered-count");
+              const floatingAnsweredCount = document.getElementById(
+                "floating-answered-count",
+              );
+
+              if (!answeredCount && !floatingAnsweredCount) return;
+
+              let answered = 0;
+              for (let i = 1; i <= this.testData.mcqNumber; i++) {
+                if (document.querySelector(`input[name="q${i}"]:checked`)) {
+                  answered++;
+                }
+              }
+
+              if (answeredCount) answeredCount.textContent = answered;
+              if (floatingAnsweredCount)
+                floatingAnsweredCount.textContent = answered;
+
+              // Update progress indicator
+              this.updateProgressIndicator(answered);
+            } catch (error) {
+              console.error("Error updating answered counts:", error);
+            }
+          }, 100); // Debounce by 100ms
+        }
+
+        // Optimized progress indicator update
+        updateProgressIndicator(answeredCount) {
+          try {
+            const floatingButton =
+              this.getCachedElement("floating-summary") ||
+              document.getElementById("floating-summary");
+            const floatingAnsweredCount = document.getElementById(
+              "floating-answered-count",
+            );
+
+            if (!floatingButton) return;
+
+            const percentage = Math.round(
+              (answeredCount / this.testData.mcqNumber) * 100,
+            );
+            floatingButton.setAttribute(
+              "title",
+              `${percentage}% সম্পূর্ণ (${answeredCount}/${this.testData.mcqNumber})`,
+            );
+
+            // Update button color based on progress
+            floatingButton.classList.remove(
+              "bg-gray-500",
+              "bg-yellow-500",
+              "bg-blue-500",
+              "bg-green-500",
+            );
+
+            let badgeColor = "bg-red-500";
+            if (percentage === 100) {
+              floatingButton.classList.add("bg-green-500");
+              badgeColor = "bg-green-500";
+            } else if (percentage >= 75) {
+              floatingButton.classList.add("bg-blue-500");
+              badgeColor = "bg-blue-500";
+            } else if (percentage >= 50) {
+              floatingButton.classList.add("bg-yellow-500");
+              badgeColor = "bg-yellow-500";
+            } else {
+              floatingButton.classList.add("bg-gray-500");
+            }
+
+            // Update badge color
+            if (floatingAnsweredCount && floatingAnsweredCount.parentElement) {
+              floatingAnsweredCount.parentElement.className = `absolute -top-2 -right-2 w-6 h-6 ${badgeColor} text-white text-xs rounded-full flex items-center justify-center font-bold`;
+            }
+          } catch (error) {
+            console.error("Error updating progress indicator:", error);
           }
         }
 
@@ -1242,39 +2588,197 @@
           const summaryContent = document.createElement("div");
           summaryContent.id = "summary-content";
           summaryContent.className =
-            "fixed bottom-16 left-2 sm:bottom-20 sm:left-5 w-40 sm:w-48 max-h-40 sm:max-h-48 p-2 sm:p-3 bg-white border-2 border-green-500 rounded-xl shadow-xl overflow-y-auto z-50";
+            "fixed bottom-16 left-2 sm:bottom-20 sm:left-5 w-48 sm:w-56 max-h-48 sm:max-h-56 p-3 sm:p-4 bg-white border-2 border-green-500 rounded-xl shadow-2xl overflow-y-auto z-50 transform transition-all duration-300 mobile-summary-position";
           summaryContent.style.display = "none";
-          summaryContent.style.backdropFilter = "blur(4px)";
-          summaryContent.style.webkitBackdropFilter = "blur(4px)";
+          summaryContent.style.backdropFilter = "blur(6px)";
+          summaryContent.style.webkitBackdropFilter = "blur(6px)";
           summaryContent.style.backgroundColor = "rgba(255, 255, 255, 0.95)";
+          summaryContent.style.boxShadow =
+            "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)";
           summaryContent.setAttribute("role", "dialog");
-          summaryContent.setAttribute("aria-label", "Question summary");
+          summaryContent.setAttribute(
+            "aria-label",
+            "প্রশ্নের সংক্ষিপ্তসার এবং অগ্রগতি",
+          );
+          summaryContent.setAttribute(
+            "aria-describedby",
+            "summary-progress-info",
+          );
           document.body.appendChild(summaryContent);
+
+          // Enhanced progress tracking
+          let lastAnsweredCount = 0;
+          let isVisible = false;
 
           const updateAnsweredCount = () => {
             const answeredCount = document.getElementById("answered-count");
-            if (answeredCount) {
+            const floatingAnsweredCount = document.getElementById(
+              "floating-answered-count",
+            );
+            const floatingButton = document.getElementById("floating-summary");
+
+            if (answeredCount || floatingAnsweredCount) {
               let answered = 0;
+              let flagged = 0;
+
               for (let i = 1; i <= this.testData.mcqNumber; i++) {
                 if (document.querySelector(`input[name="q${i}"]:checked`)) {
                   answered++;
                 }
+                // Check for flagged questions (if you implement flagging)
+                if (this.flaggedQuestions && this.flaggedQuestions.has(i)) {
+                  flagged++;
+                }
               }
-              answeredCount.textContent = answered;
+
+              if (answeredCount) answeredCount.textContent = answered;
+              if (floatingAnsweredCount)
+                floatingAnsweredCount.textContent = answered;
+
+              // Update floating button with progress indication
+              if (floatingButton) {
+                const percentage = Math.round(
+                  (answered / this.testData.mcqNumber) * 100,
+                );
+                floatingButton.setAttribute(
+                  "title",
+                  `${percentage}% সম্পূর্ণ (${answered}/${this.testData.mcqNumber})`,
+                );
+
+                // Change button appearance based on progress
+                floatingButton.className = floatingButton.className.replace(
+                  /bg-\w+-\d+/,
+                  "",
+                );
+                if (percentage === 100) {
+                  floatingButton.classList.add("bg-green-500", "animate-pulse");
+                  if (floatingAnsweredCount) {
+                    floatingAnsweredCount.parentElement.className =
+                      "absolute -top-2 -right-2 w-6 h-6 bg-green-500 text-white text-xs rounded-full flex items-center justify-center font-bold";
+                  }
+                } else if (percentage >= 75) {
+                  floatingButton.classList.add("bg-blue-500");
+                  if (floatingAnsweredCount) {
+                    floatingAnsweredCount.parentElement.className =
+                      "absolute -top-2 -right-2 w-6 h-6 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center font-bold";
+                  }
+                } else if (percentage >= 50) {
+                  floatingButton.classList.add("bg-yellow-500");
+                  if (floatingAnsweredCount) {
+                    floatingAnsweredCount.parentElement.className =
+                      "absolute -top-2 -right-2 w-6 h-6 bg-yellow-500 text-white text-xs rounded-full flex items-center justify-center font-bold";
+                  }
+                } else {
+                  floatingButton.classList.add("bg-gray-500");
+                  if (floatingAnsweredCount) {
+                    floatingAnsweredCount.parentElement.className =
+                      "absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold";
+                  }
+                }
+
+                // Show notification when progress milestones are reached
+                if (answered > lastAnsweredCount) {
+                  if (
+                    answered === this.testData.mcqNumber &&
+                    answered > lastAnsweredCount
+                  ) {
+                    this.showUserMessage(
+                      "সব প্রশ্নের উত্তর দেওয়া হয়েছে! চূড়ান্ত পর্যালোচনা করুন।",
+                      "success",
+                    );
+                  } else if (
+                    percentage === 50 &&
+                    lastAnsweredCount < this.testData.mcqNumber / 2
+                  ) {
+                    this.showUserMessage(
+                      "অর্ধেক প্রশ্ন সম্পূর্ণ! চালিয়ে যান।",
+                      "info",
+                    );
+                  } else if (
+                    percentage === 75 &&
+                    lastAnsweredCount < this.testData.mcqNumber * 0.75
+                  ) {
+                    this.showUserMessage(
+                      "৭৫% প্রশ্ন সম্পূর্ণ! প্রায় শেষ।",
+                      "info",
+                    );
+                  }
+                }
+
+                lastAnsweredCount = answered;
+              }
+
+              // Update summary if visible
+              if (isVisible) {
+                this.updateSummary(summaryContent);
+              }
             }
           };
 
-          this.addEventListener("floating-summary", "click", () => {
-            this.summaryVisible = !this.summaryVisible;
-            summaryContent.style.display = this.summaryVisible
-              ? "block"
-              : "none";
-            if (this.summaryVisible) this.updateSummary(summaryContent);
+          // Enhanced floating button click with animation
+          this.addEventListener("floating-summary", "click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            isVisible = !isVisible;
+            const button = e.currentTarget;
+
+            // Add click animation
+            button.style.transform = "scale(0.95)";
+            setTimeout(() => {
+              button.style.transform = "scale(1)";
+            }, 150);
+
+            if (isVisible) {
+              summaryContent.style.display = "block";
+              summaryContent.style.opacity = "0";
+              summaryContent.style.transform = "translateY(20px) scale(0.95)";
+
+              setTimeout(() => {
+                summaryContent.style.opacity = "1";
+                summaryContent.style.transform = "translateY(0) scale(1)";
+              }, 10);
+
+              this.updateSummary(summaryContent);
+
+              // Focus management for accessibility
+              const firstQuestion =
+                summaryContent.querySelector('[tabindex="0"]');
+              if (firstQuestion) {
+                firstQuestion.focus();
+              }
+            } else {
+              summaryContent.style.opacity = "0";
+              summaryContent.style.transform = "translateY(20px) scale(0.95)";
+
+              setTimeout(() => {
+                summaryContent.style.display = "none";
+              }, 300);
+
+              // Return focus to floating button
+              button.focus();
+            }
           });
 
+          // Enhanced keyboard navigation
           this.addEventListener("floating-summary", "keydown", (e) => {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
+              e.stopPropagation();
+              floatingSummary.click();
+            } else if (e.key === "Escape" && isVisible) {
+              e.preventDefault();
+              floatingSummary.click(); // Close summary
+            }
+          });
+
+          // Close summary when clicking outside
+          document.addEventListener("click", (e) => {
+            if (
+              isVisible &&
+              !summaryContent.contains(e.target) &&
+              e.target !== floatingSummary
+            ) {
               floatingSummary.click();
             }
           });
@@ -1288,59 +2792,324 @@
               radio.addEventListener("change", updateAnsweredCount);
             });
           }
+
+          // Initialize flagged questions set
+          this.flaggedQuestions = this.flaggedQuestions || new Set();
+
+          // Initial count update
+          updateAnsweredCount();
         }
 
         updateSummary(container) {
           if (!container) return;
-          container.innerHTML = "";
 
-          for (let i = 1; i <= this.testData.mcqNumber; i++) {
-            const isAnswered = document.querySelector(
-              `input[name="q${i}"]:checked`,
-            );
-            const color = isAnswered
-              ? "bg-green-500 text-white"
-              : "bg-gray-200 text-gray-700";
-            const questionBox = document.createElement("div");
-            questionBox.className = `inline-block w-6 h-6 sm:w-7 sm:h-7 m-0.5 sm:m-1 border border-gray-300 text-center leading-6 sm:leading-7 cursor-pointer rounded-lg font-bold transition-all duration-300 hover:scale-110 text-xs sm:text-sm ${color}`;
-            questionBox.textContent = i;
-            questionBox.setAttribute("role", "button");
-            questionBox.setAttribute("aria-label", `Go to question ${i}`);
-            questionBox.setAttribute("tabindex", "0");
-            questionBox.style.display = "inline-block";
-            questionBox.style.width = "24px";
-            questionBox.style.height = "24px";
-            questionBox.style.margin = "2px";
-            questionBox.style.border = "1px solid #d1d5db";
-            questionBox.style.textAlign = "center";
-            questionBox.style.lineHeight = "22px";
-            questionBox.style.cursor = "pointer";
-            questionBox.style.borderRadius = "6px";
-            questionBox.style.fontWeight = "bold";
-            questionBox.style.fontSize = "12px";
-            questionBox.style.transition = "all 0.3s ease";
-            if (isAnswered) {
-              questionBox.style.backgroundColor = "#10b981";
-              questionBox.style.color = "white";
-            } else {
-              questionBox.style.backgroundColor = "#e5e7eb";
-              questionBox.style.color = "#374151";
+          try {
+            container.innerHTML = "";
+
+            // Create header with progress information
+            const header = document.createElement("div");
+            header.className = "mb-3 pb-2 border-b border-gray-200";
+
+            let answered = 0;
+            let unanswered = 0;
+            let flagged = this.flaggedQuestions
+              ? this.flaggedQuestions.size
+              : 0;
+
+            // Count answered questions
+            for (let i = 1; i <= this.testData.mcqNumber; i++) {
+              if (document.querySelector(`input[name="q${i}"]:checked`)) {
+                answered++;
+              } else {
+                unanswered++;
+              }
             }
 
-            questionBox.addEventListener("click", () => {
-              document
-                .getElementById(`mcq-${i}`)
-                .scrollIntoView({ behavior: "smooth" });
-            });
+            const percentage = Math.round(
+              (answered / this.testData.mcqNumber) * 100,
+            );
 
-            questionBox.addEventListener("keydown", (e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                questionBox.click();
+            header.innerHTML = `
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="font-bold text-sm text-gray-800 font-hind">প্রশ্ন সংক্ষিপ্তসার</h4>
+                <span class="text-xs text-gray-600 font-bold">${percentage}%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2 mb-2 overflow-hidden">
+                <div class="h-2 rounded-full transition-all duration-500 ${
+                  percentage === 100
+                    ? "bg-green-500"
+                    : percentage >= 75
+                      ? "bg-blue-500"
+                      : percentage >= 50
+                        ? "bg-yellow-500"
+                        : "bg-red-500"
+                }" style="width: ${percentage}%"></div>
+              </div>
+              <div class="flex justify-between text-xs font-hind">
+                <span class="text-green-600">
+                  <i class="fas fa-check-circle mr-1"></i>${answered} সম্পূর্ণ
+                </span>
+                <span class="text-gray-500">
+                  <i class="fas fa-clock mr-1"></i>${unanswered} বাকি
+                </span>
+                ${flagged > 0 ? `<span class="text-yellow-600"><i class="fas fa-flag mr-1"></i>${flagged} ফ্ল্যাগ</span>` : ""}
+              </div>
+            `;
+
+            container.appendChild(header);
+
+            // Create questions grid with enhanced visual feedback
+            const questionsGrid = document.createElement("div");
+            questionsGrid.className = "grid grid-cols-6 gap-1";
+            questionsGrid.setAttribute("role", "grid");
+            questionsGrid.setAttribute("aria-label", "প্রশ্নের তালিকা");
+
+            for (let i = 1; i <= this.testData.mcqNumber; i++) {
+              const isAnswered = document.querySelector(
+                `input[name="q${i}"]:checked`,
+              );
+              const isFlagged =
+                this.flaggedQuestions && this.flaggedQuestions.has(i);
+              const isCurrentQuestion = this.isQuestionInViewport(i);
+
+              // Determine question status and styling
+              let statusClass, statusIcon, statusText, bgColor, textColor;
+
+              if (isAnswered) {
+                statusClass = "answered";
+                statusIcon = "fas fa-check";
+                statusText = "উত্তরিত";
+                bgColor = "#10b981"; // green
+                textColor = "white";
+              } else {
+                statusClass = "unanswered";
+                statusIcon = "fas fa-question";
+                statusText = "অনুত্তরিত";
+                bgColor = "#e5e7eb"; // gray
+                textColor = "#374151";
               }
-            });
 
-            container.appendChild(questionBox);
+              if (isFlagged) {
+                statusIcon = "fas fa-flag";
+                bgColor = "#f59e0b"; // yellow
+                textColor = "white";
+                statusText = "ফ্ল্যাগকৃত";
+              }
+
+              const questionBox = document.createElement("div");
+              questionBox.className = `relative inline-flex items-center justify-center w-8 h-8 m-0.5 border-2 text-center cursor-pointer rounded-lg font-bold transition-all duration-300 hover:scale-110 text-xs ${isCurrentQuestion ? "ring-2 ring-blue-400 ring-offset-1" : ""}`;
+              questionBox.textContent = i;
+              questionBox.setAttribute("role", "gridcell");
+              questionBox.setAttribute(
+                "aria-label",
+                `প্রশ্ন ${i} - ${statusText}${isFlagged ? " (ফ্ল্যাগকৃত)" : ""}`,
+              );
+              questionBox.setAttribute("tabindex", "0");
+              questionBox.setAttribute("data-question", i);
+              questionBox.style.backgroundColor = bgColor;
+              questionBox.style.color = textColor;
+              questionBox.style.borderColor = isCurrentQuestion
+                ? "#3b82f6"
+                : isAnswered
+                  ? "#10b981"
+                  : "#d1d5db";
+
+              // Add status indicator
+              if (isAnswered || isFlagged) {
+                const indicator = document.createElement("i");
+                indicator.className = `${statusIcon} absolute -top-1 -right-1 text-xs`;
+                indicator.style.fontSize = "8px";
+                questionBox.appendChild(indicator);
+              }
+
+              // Enhanced click interaction with visual feedback
+              questionBox.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                // Visual feedback
+                questionBox.style.transform = "scale(0.9)";
+                setTimeout(() => {
+                  questionBox.style.transform = "scale(1.1)";
+                  setTimeout(() => {
+                    questionBox.style.transform = "scale(1)";
+                  }, 100);
+                }, 100);
+
+                // Smooth scroll to question
+                const targetQuestion = document.getElementById(`mcq-${i}`);
+                if (targetQuestion) {
+                  targetQuestion.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  });
+
+                  // Highlight the target question temporarily
+                  targetQuestion.style.backgroundColor = "#fef3c7";
+                  targetQuestion.style.transition =
+                    "background-color 0.3s ease";
+                  setTimeout(() => {
+                    targetQuestion.style.backgroundColor = "";
+                  }, 2000);
+
+                  // Focus on the first radio button of the question for accessibility
+                  setTimeout(() => {
+                    const firstRadio = targetQuestion.querySelector(
+                      'input[type="radio"]',
+                    );
+                    if (firstRadio && !isAnswered) {
+                      firstRadio.focus();
+                    }
+                  }, 500);
+                }
+              });
+
+              // Enhanced keyboard navigation
+              questionBox.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  questionBox.click();
+                } else if (e.key === "f" || e.key === "F") {
+                  // Flag/unflag question with 'F' key
+                  e.preventDefault();
+                  this.toggleQuestionFlag(i);
+                  this.updateSummary(container); // Refresh summary
+                } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                  e.preventDefault();
+                  const nextBox = questionsGrid.querySelector(
+                    `[data-question="${i + 1}"]`,
+                  );
+                  if (nextBox) nextBox.focus();
+                } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                  e.preventDefault();
+                  const prevBox = questionsGrid.querySelector(
+                    `[data-question="${i - 1}"]`,
+                  );
+                  if (prevBox) prevBox.focus();
+                }
+              });
+
+              // Hover effects
+              questionBox.addEventListener("mouseenter", () => {
+                questionBox.style.transform = "scale(1.05)";
+                questionBox.style.boxShadow = "0 4px 8px rgba(0,0,0,0.15)";
+              });
+
+              questionBox.addEventListener("mouseleave", () => {
+                questionBox.style.transform = "scale(1)";
+                questionBox.style.boxShadow = "none";
+              });
+
+              questionsGrid.appendChild(questionBox);
+            }
+
+            container.appendChild(questionsGrid);
+
+            // Add footer with quick actions
+            const footer = document.createElement("div");
+            footer.className =
+              "mt-3 pt-2 border-t border-gray-200 flex justify-between text-xs font-hind";
+            footer.innerHTML = `
+              <button class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors" onclick="app.scrollToFirstUnanswered()">
+                <i class="fas fa-arrow-right mr-1"></i>পরবর্তী অনুত্তরিত
+              </button>
+              <button class="px-2 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors" onclick="document.getElementById('floating-summary').click()">
+                <i class="fas fa-times mr-1"></i>বন্ধ
+              </button>
+            `;
+
+            container.appendChild(footer);
+
+            // Add keyboard shortcut info
+            const shortcuts = document.createElement("div");
+            shortcuts.className = "mt-2 text-xs text-gray-500 font-hind";
+            shortcuts.innerHTML = `<i class="fas fa-info-circle mr-1"></i>টিপস: F=ফ্ল্যাগ, ESC=বন্ধ, তীর=নেভিগেট`;
+            container.appendChild(shortcuts);
+          } catch (error) {
+            console.error("Error updating summary:", error);
+            container.innerHTML =
+              '<div class="text-red-500 text-center p-2 font-hind">সংক্ষিপ্তসার লোড করতে সমস্যা হয়েছে</div>';
+          }
+        }
+
+        isQuestionInViewport(questionNumber) {
+          try {
+            const questionElement = document.getElementById(
+              `mcq-${questionNumber}`,
+            );
+            if (!questionElement) return false;
+
+            const rect = questionElement.getBoundingClientRect();
+            return rect.top >= 0 && rect.bottom <= window.innerHeight;
+          } catch (error) {
+            return false;
+          }
+        }
+
+        toggleQuestionFlag(questionNumber) {
+          try {
+            if (!this.flaggedQuestions) {
+              this.flaggedQuestions = new Set();
+            }
+
+            if (this.flaggedQuestions.has(questionNumber)) {
+              this.flaggedQuestions.delete(questionNumber);
+              this.showUserMessage(
+                `প্রশ্ন ${questionNumber} থেকে ফ্ল্যাগ সরানো হয়েছে`,
+                "info",
+              );
+            } else {
+              this.flaggedQuestions.add(questionNumber);
+              this.showUserMessage(
+                `প্রশ্ন ${questionNumber} ফ্ল্যাগ করা হয়েছে`,
+                "info",
+              );
+            }
+
+            // Save flagged questions
+            this.safeLocalStorageSet(
+              "flaggedQuestions",
+              Array.from(this.flaggedQuestions),
+            );
+          } catch (error) {
+            console.error("Error toggling flag:", error);
+            this.showUserMessage("ফ্ল্যাগ টগল করতে সমস্যা হয়েছে", "error");
+          }
+        }
+
+        scrollToFirstUnanswered() {
+          try {
+            for (let i = 1; i <= this.testData.mcqNumber; i++) {
+              if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+                const questionElement = document.getElementById(`mcq-${i}`);
+                if (questionElement) {
+                  questionElement.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  });
+
+                  // Close summary after navigation
+                  const floatingButton =
+                    document.getElementById("floating-summary");
+                  if (floatingButton) {
+                    setTimeout(() => floatingButton.click(), 500);
+                  }
+
+                  // Focus on first radio button
+                  setTimeout(() => {
+                    const firstRadio = questionElement.querySelector(
+                      'input[type="radio"]',
+                    );
+                    if (firstRadio) firstRadio.focus();
+                  }, 800);
+
+                  return;
+                }
+              }
+            }
+            this.showUserMessage("সব প্রশ্নের উত্তর দেওয়া হয়েছে!", "success");
+          } catch (error) {
+            console.error("Error scrolling to unanswered:", error);
+            this.showUserMessage("প্রশ্নে যেতে সমস্যা হয়েছে", "error");
           }
         }
         startTimer() {
@@ -1384,7 +3153,9 @@
           this.timer = setInterval(() => {
             const minutes = Math.floor(timeRemaining / 60);
             const seconds = timeRemaining % 60;
-            const timeString = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+            const timeString = `${minutes.toString().padStart(2, "0")}:${seconds
+              .toString()
+              .padStart(2, "0")}`;
 
             if (timerDisplay)
               timerDisplay.textContent = `অবশিষ্ট সময়: ${minutes}মি ${seconds}সে`;
@@ -1562,7 +3333,9 @@
               <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6">
                 <div class="bg-white/90 p-2 sm:p-3 md:p-4 rounded-lg shadow-md text-center">
                   <i class="fas fa-list text-blue-600 text-lg sm:text-xl md:text-2xl lg:text-3xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
-                  <div class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-blue-600">${this.testData.mcqNumber}</div>
+                  <div class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-blue-600">${
+                    this.testData.mcqNumber
+                  }</div>
                   <div class="font-semibold text-gray-700 font-hind text-xs sm:text-xs md:text-sm">মোট প্রশ্ন</div>
                 </div>
                 <div class="bg-white/90 p-2 sm:p-3 md:p-4 rounded-lg shadow-md text-center">
@@ -1582,18 +3355,24 @@
                 </div>
                 <div class="bg-white/90 p-2 sm:p-3 md:p-4 rounded-lg shadow-md text-center">
                   <i class="fas fa-exclamation-triangle text-purple-600 text-lg sm:text-xl md:text-2xl lg:text-3xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
-                  <div class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-purple-600">${(incorrectCount * this.testData.negativeMarkingValue).toFixed(2)}</div>
+                  <div class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-purple-600">${(
+                    incorrectCount * this.testData.negativeMarkingValue
+                  ).toFixed(2)}</div>
                   <div class="font-semibold text-gray-700 font-hind text-xs sm:text-xs md:text-sm">নেগেটিভ মার্কিং</div>
                 </div>
                 <div class="bg-white/90 p-2 sm:p-3 md:p-4 rounded-lg shadow-md text-center">
                   <i class="fas fa-trophy text-yellow-600 text-lg sm:text-xl md:text-2xl lg:text-3xl mb-1 sm:mb-2 block" aria-hidden="true"></i>
-                  <div class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-yellow-600">${totalScore.toFixed(2)}</div>
+                  <div class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-yellow-600">${totalScore.toFixed(
+                    2,
+                  )}</div>
                   <div class="font-semibold text-gray-700 font-hind text-xs sm:text-xs md:text-sm">মোট স্কোর</div>
                 </div>
               </div>
               <div class="bg-gradient-to-r from-orange-100 to-orange-200 border-2 border-orange-300 p-2 sm:p-3 md:p-4 rounded-xl text-center">
                 <div class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-orange-700 mb-1 sm:mb-2">
-                  <i class="fas fa-percentage mr-1 sm:mr-2 text-sm sm:text-base md:text-lg" aria-hidden="true"></i> ${percentage.toFixed(2)}%
+                  <i class="fas fa-percentage mr-1 sm:mr-2 text-sm sm:text-base md:text-lg" aria-hidden="true"></i> ${percentage.toFixed(
+                    2,
+                  )}%
                 </div>
                 <div class="text-sm sm:text-base md:text-lg font-semibold text-orange-800 font-hind">সার্বিক শতাংশ</div>
               </div>
@@ -1651,9 +3430,15 @@
             div.innerHTML = `
               <h3 class="font-bold text-lg">${this.escapeHtml(test.name)}</h3>
               <p>তারিখ: ${new Date(test.date).toLocaleString()}</p>
-              <p>মোট প্রশ্ন: ${test.totalQ}, প্রশ্ন প্রতি নাম্বার: ${test.marksPerQ}, নেগেটিভ মার্কিং: ${test.negMark}, সময়: ${test.timeLim} মিনিট</p>
-              <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded mr-2 retake-btn" data-index="${index}" aria-label="Retake test ${index + 1}">পুনরায় নেওয়া</button>
-              <button class="mt-2 px-4 py-2 bg-red-500 text-white rounded delete-btn" data-index="${index}" aria-label="Delete test ${index + 1}">ডিলিট</button>
+              <p>মোট প্রশ্ন: ${test.totalQ}, প্রশ্ন প্রতি নাম্বার: ${
+                test.marksPerQ
+              }, নেগেটিভ মার্কিং: ${test.negMark}, সময়: ${test.timeLim} মিনিট</p>
+              <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded mr-2 retake-btn" data-index="${index}" aria-label="Retake test ${
+                index + 1
+              }">পুনরায় নেওয়া</button>
+              <button class="mt-2 px-4 py-2 bg-red-500 text-white rounded delete-btn" data-index="${index}" aria-label="Delete test ${
+                index + 1
+              }">ডিলিট</button>
             `;
             container.appendChild(div);
           });
@@ -1735,6 +3520,188 @@
             }
           }, 1000);
         }
+
+        handleFormSubmit(event) {
+          event.preventDefault();
+
+          try {
+            // Clear previous error styles
+            this.clearFormErrors();
+
+            // Validate and collect form data
+            const formData = this.validateFormData();
+            if (!formData) return; // Validation failed
+
+            this.testData = formData;
+            this.showSection("test-section");
+            this.generateTestInterface();
+            this.startTimer();
+          } catch (error) {
+            console.error("Form submission error:", error);
+            this.showError("ফর্ম জমা দেওয়ার সময় একটি ত্রুটি ঘটেছে।");
+          }
+        }
+
+        clearFormErrors() {
+          const inputs = document.querySelectorAll("#test-form input");
+          inputs.forEach((input) => {
+            input.classList.remove("border-red-500");
+            const errorDiv =
+              input.parentElement.querySelector(".error-message");
+            if (errorDiv) errorDiv.remove();
+          });
+        }
+
+        showFieldError(fieldId, message) {
+          const field = document.getElementById(fieldId);
+          if (!field) return;
+
+          field.classList.add("border-red-500");
+          const errorDiv = document.createElement("div");
+          errorDiv.className =
+            "error-message text-red-600 text-sm mt-1 font-hind";
+          errorDiv.textContent = message;
+          field.parentElement.appendChild(errorDiv);
+          field.focus();
+        }
+
+        showError(message) {
+          alert(message);
+        }
+
+        validateFormData() {
+          const name = document.getElementById("test-name").value.trim();
+          const mcqNumber = document.getElementById("mcq-number").value.trim();
+          const timeLimit = document.getElementById("time-limit").value.trim();
+          const marksPerQuestion = document
+            .getElementById("marks-per-question")
+            .value.trim();
+          const negativeMarkingValue = document
+            .getElementById("negative-marking-value")
+            .value.trim();
+
+          // Test name validation
+          if (!name) {
+            this.showFieldError("test-name", "পরীক্ষার নাম অবশ্যই দিতে হবে।");
+            return null;
+          }
+          if (name.length < 2) {
+            this.showFieldError(
+              "test-name",
+              "পরীক্ষার নাম কমপক্ষে ২টি অক্ষর হতে হবে।",
+            );
+            return null;
+          }
+          if (name.length > 100) {
+            this.showFieldError(
+              "test-name",
+              "পরীক্ষার নাম সর্বোচ্চ ১০০ অক্ষর হতে পারে।",
+            );
+            return null;
+          }
+
+          // MCQ number validation
+          if (!mcqNumber) {
+            this.showFieldError(
+              "mcq-number",
+              "প্রশ্নের সংখ্যা অবশ্যই দিতে হবে।",
+            );
+            return null;
+          }
+          const parsedMcqNumber = parseInt(mcqNumber);
+          if (isNaN(parsedMcqNumber) || parsedMcqNumber < 1) {
+            this.showFieldError(
+              "mcq-number",
+              "প্রশ্নের সংখ্যা কমপক্ষে ১ হতে হবে।",
+            );
+            return null;
+          }
+          if (parsedMcqNumber > 100) {
+            this.showFieldError(
+              "mcq-number",
+              "প্রশ্নের সংখ্যা সর্বোচ্চ ১০০ হতে পারে।",
+            );
+            return null;
+          }
+
+          // Time limit validation
+          if (!timeLimit) {
+            this.showFieldError("time-limit", "সময়সীমা অবশ্যই দিতে হবে।");
+            return null;
+          }
+          const parsedTimeLimit = parseInt(timeLimit);
+          if (isNaN(parsedTimeLimit) || parsedTimeLimit < 1) {
+            this.showFieldError(
+              "time-limit",
+              "সময়সীমা কমপক্ষে ১ মিনিট হতে হবে।",
+            );
+            return null;
+          }
+          if (parsedTimeLimit > 300) {
+            this.showFieldError(
+              "time-limit",
+              "সময়সীমা সর্বোচ্চ ৩০০ মিনিট হতে পারে।",
+            );
+            return null;
+          }
+
+          // Marks per question validation
+          if (!marksPerQuestion) {
+            this.showFieldError(
+              "marks-per-question",
+              "প্রশ্ন প্রতি নাম্বার অবশ্যই দিতে হবে।",
+            );
+            return null;
+          }
+          const parsedMarksPerQuestion = parseFloat(marksPerQuestion);
+          if (isNaN(parsedMarksPerQuestion) || parsedMarksPerQuestion < 0) {
+            this.showFieldError(
+              "marks-per-question",
+              "প্রশ্ন প্রতি নাম্বার ০ বা তার বেশি হতে হবে।",
+            );
+            return null;
+          }
+          if (parsedMarksPerQuestion > 10) {
+            this.showFieldError(
+              "marks-per-question",
+              "প্রশ্ন প্রতি নাম্বার সর্বোচ্চ ১০ হতে পারে।",
+            );
+            return null;
+          }
+
+          // Negative marking validation
+          if (!negativeMarkingValue) {
+            this.showFieldError(
+              "negative-marking-value",
+              "নেগেটিভ মার্কিং মান অবশ্যই দিতে হবে।",
+            );
+            return null;
+          }
+          const parsedNegativeMarking = parseFloat(negativeMarkingValue);
+          if (isNaN(parsedNegativeMarking) || parsedNegativeMarking < 0) {
+            this.showFieldError(
+              "negative-marking-value",
+              "নেগেটিভ মার্কিং মান ০ বা তার বেশি হতে হবে।",
+            );
+            return null;
+          }
+          if (parsedNegativeMarking > parsedMarksPerQuestion) {
+            this.showFieldError(
+              "negative-marking-value",
+              "নেগেটিভ মার্কিং মান প্রশ্ন প্রতি নাম্বারের চেয়ে বেশি হতে পারে না।",
+            );
+            return null;
+          }
+
+          return {
+            name: name,
+            mcqNumber: parsedMcqNumber,
+            timeLimit: parsedTimeLimit,
+            marksPerQuestion: parsedMarksPerQuestion,
+            negativeMarkingValue: parsedNegativeMarking,
+          };
+        }
+
         setupEventListeners() {
           this.addEventListener("test-form", "submit", (e) =>
             this.handleFormSubmit(e),
@@ -1791,448 +3758,195 @@
       });
     </script>
     <script>
-      let mcqNumber = 0;
-      let testName = "";
-      let timeLimit = 0;
-      let marksPerQuestion = 1;
-      let negativeMarkingValue = 0.25;
-      let retakeData = null;
-      let timer;
-      let saveListenerAttached = false;
-      let printListenerAttached = false;
+      // Enhanced utility functions
+      function escapeHtml(text) {
+        const map = {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;",
+        };
+        return text.replace(/[&<>"']/g, function (m) {
+          return map[m];
+        });
+      }
 
-      function showSection(sectionId) {
-        const sections = [
-          "configuration-section",
+      // Professional enhancement functions
+      function applyProfessionalEnhancements() {
+        // Add professional classes to buttons
+        const buttons = document.querySelectorAll("button:not(.no-enhance)");
+        buttons.forEach((btn) => {
+          btn.classList.add("btn-professional");
+        });
+
+        // Add professional classes to inputs
+        const inputs = document.querySelectorAll("input, select, textarea");
+        inputs.forEach((input) => {
+          input.classList.add("input-professional");
+        });
+
+        // Add card hover effects
+        const cards = document.querySelectorAll(
+          ".bg-white, .rounded-xl, .shadow-xl",
+        );
+        cards.forEach((card) => {
+          card.classList.add("card-hover");
+        });
+
+        // Add fade-in animation to main sections
+        const sections = document.querySelectorAll("section");
+        sections.forEach((section, index) => {
+          section.style.animation = `fadeInUp 0.6s ease forwards ${index * 0.1}s`;
+        });
+
+        // Add professional notifications
+        addNotificationSystem();
+
+        // Add loading states
+        addLoadingStates();
+
+        // Add enhanced progress indicators
+        enhanceProgressIndicators();
+
+        // Add status indicators where appropriate
+        addStatusIndicators();
+      }
+
+      function addNotificationSystem() {
+        // Create notification container if it doesn't exist
+        if (!document.getElementById("notification-container")) {
+          const container = document.createElement("div");
+          container.id = "notification-container";
+          container.className = "fixed top-4 right-4 z-50 space-y-2";
+          document.body.appendChild(container);
+        }
+      }
+
+      function showNotification(message, type = "info", duration = 3000) {
+        const container = document.getElementById("notification-container");
+        if (!container) return;
+
+        const notification = document.createElement("div");
+        notification.className = `notification-slide p-4 rounded-lg shadow-lg text-white max-w-sm ${
+          type === "success"
+            ? "bg-green-500"
+            : type === "error"
+              ? "bg-red-500"
+              : type === "warning"
+                ? "bg-yellow-500"
+                : "bg-blue-500"
+        }`;
+
+        const statusIcon = document.createElement("span");
+        statusIcon.className = `status-indicator status-${type}`;
+
+        notification.innerHTML = `
+          <div class="flex items-center">
+            ${statusIcon.outerHTML}
+            <span>${message}</span>
+          </div>
+        `;
+
+        container.appendChild(notification);
+
+        // Auto-remove after duration
+        setTimeout(() => {
+          notification.classList.add("hide");
+          setTimeout(() => {
+            if (container.contains(notification)) {
+              container.removeChild(notification);
+            }
+          }, 300);
+        }, duration);
+      }
+
+      function addLoadingStates() {
+        // Add loading shimmer to elements that might load dynamically
+        const loadingElements = document.querySelectorAll(".async-content");
+        loadingElements.forEach((el) => {
+          if (!el.dataset.loaded) {
+            el.classList.add("loading-shimmer");
+          }
+        });
+      }
+
+      function enhanceProgressIndicators() {
+        // Enhance any progress bars or indicators
+        const progressElements = document.querySelectorAll(
+          '.progress, [role="progressbar"]',
+        );
+        progressElements.forEach((progress) => {
+          if (!progress.querySelector(".progress-ring")) {
+            progress.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+          }
+        });
+      }
+
+      function addStatusIndicators() {
+        // Add status indicators to important elements
+        const statusElements = document.querySelectorAll(
+          ".status, .result, .score",
+        );
+        statusElements.forEach((el) => {
+          if (!el.querySelector(".status-indicator")) {
+            const indicator = document.createElement("span");
+            indicator.className = "status-indicator status-info";
+            el.insertBefore(indicator, el.firstChild);
+          }
+        });
+      }
+
+      // Global notification function for use throughout the app
+      window.showNotification = showNotification;
+
+      // Initialize the app only once
+      document.addEventListener("DOMContentLoaded", () => {
+        const hiddenSections = [
           "test-section",
           "correct-answer-section",
           "result-section",
           "history-section",
         ];
-        sections.forEach((id) => {
+        hiddenSections.forEach((id) => {
           const element = document.getElementById(id);
-          if (element) {
-            element.classList.add("hidden");
+          if (element && element.classList.contains("hidden")) {
             element.setAttribute("aria-hidden", "true");
           }
         });
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-          targetSection.classList.remove("hidden");
-          targetSection.removeAttribute("aria-hidden");
-        }
-      }
 
-      function saveTest(
-        name,
-        totalQ,
-        marksPerQ,
-        negMark,
-        timeLim,
-        userAns,
-        correctAns,
-        date,
-      ) {
-        const tests = JSON.parse(localStorage.getItem("examHistory") || "[]");
-        tests.push({
-          name,
-          totalQ,
-          marksPerQ,
-          negMark,
-          timeLim,
-          userAns,
-          correctAns,
-          date,
-        });
-        localStorage.setItem("examHistory", JSON.stringify(tests));
-      }
+        const app = new ExamApp();
+        window.examAppInstance = app; // Store globally for export/import buttons
 
-      function loadHistory() {
-        const tests = JSON.parse(localStorage.getItem("examHistory") || "[]");
-        const container = document.getElementById("history-container");
-        container.innerHTML = "";
-        if (tests.length === 0) {
-          container.innerHTML =
-            "<p class='text-center text-gray-600'>কোন পরীক্ষা সেভ হয়নি।</p>";
-          return;
-        }
-        tests.forEach((test, index) => {
-          const div = document.createElement("div");
-          div.className = "bg-white/80 p-4 rounded-lg shadow-md mb-4";
-          div.innerHTML = `
-            <h3 class="font-bold text-lg">${test.name}</h3>
-            <p>তারিখ: ${new Date(test.date).toLocaleString()}</p>
-            <p>মোট প্রশ্ন: ${test.totalQ}, প্রশ্ন প্রতি নাম্বার: ${test.marksPerQ}, নেগেটিভ মার্কিং: ${test.negMark}, সময়: ${test.timeLim} মিনিট</p>
-            <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded mr-2" onclick="retakeTest(${index})">পুনরায় নেওয়া</button>
-            <button class="mt-2 px-4 py-2 bg-red-500 text-white rounded" onclick="deleteTest(${index})">ডিলিট</button>
-          `;
-          container.appendChild(div);
-        });
-      }
+        // Apply professional enhancements
+        applyProfessionalEnhancements();
 
-      function deleteTest(index) {
-        const tests = JSON.parse(localStorage.getItem("examHistory") || "[]");
-        tests.splice(index, 1);
-        localStorage.setItem("examHistory", JSON.stringify(tests));
-        loadHistory();
-      }
+        // Add event listeners for export/import buttons
+        setTimeout(() => {
+          const exportBtn = document.getElementById("export-data");
+          const importBtn = document.getElementById("import-data");
 
-      function retakeTest(index) {
-        const tests = JSON.parse(localStorage.getItem("examHistory") || "[]");
-        const test = tests[index];
-        if (!test) return;
-
-        retakeData = test;
-        testName = test.name;
-        mcqNumber = test.totalQ;
-        marksPerQuestion = test.marksPerQ;
-        negativeMarkingValue = test.negMark;
-        timeLimit = test.timeLim;
-        document.getElementById("test-name").value = testName;
-        document.getElementById("mcq-number").value = mcqNumber;
-        document.getElementById("marks-per-question").value = marksPerQuestion;
-        document.getElementById("negative-marking-value").value =
-          negativeMarkingValue;
-        document.getElementById("time-limit").value = timeLimit;
-        showSection("test-section");
-        const mcqContainer = document.getElementById("mcq-container");
-        mcqContainer.innerHTML = "";
-        for (let i = 1; i <= mcqNumber; i++) {
-          const mcqDiv = document.createElement("div");
-          mcqDiv.className =
-            "flex flex-col md:flex-row md:items-center justify-between mb-3 sm:mb-4 md:mb-5 gap-2 sm:gap-2.5 md:gap-4 p-3 sm:p-4 md:p-5 border border-white/30 rounded-xl bg-white/80 glass-morphism shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5";
-          mcqDiv.innerHTML = `
-                    <p class="flex-1 md:mr-4 font-semibold text-gray-700 mb-2 md:mb-0 min-w-0 font-hind text-sm sm:text-base"><i class="fas fa-question-circle text-blue-600 mr-2"></i> প্রশ্ন ${i}:</p>
-                    <div class="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap items-center">
-                        <input type="radio" name="q${i}" value="A" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0" ${test.userAns[i - 1] === "A" ? "checked" : ""}>
-                        <input type="radio" name="q${i}" value="B" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0" ${test.userAns[i - 1] === "B" ? "checked" : ""}>
-                        <input type="radio" name="q${i}" value="C" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0" ${test.userAns[i - 1] === "C" ? "checked" : ""}>
-                        <input type="radio" name="q${i}" value="D" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0" ${test.userAns[i - 1] === "D" ? "checked" : ""}>
-                    </div>
-                `;
-          mcqContainer.appendChild(mcqDiv);
-        }
-        const testDetails = document.getElementById("test-details");
-        testDetails.innerHTML = `
-          <div class="bg-blue-50 p-6 rounded-xl border border-blue-200">
-            <h3 class="text-2xl font-bold text-blue-600 mb-6 text-center">
-              <i class="fas fa-clipboard-list text-blue-600 mr-2"></i>
-              ${testName}
-              <i class="fas fa-clipboard-list text-blue-600 ml-2"></i>
-            </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div class="bg-white p-4 rounded-lg border border-blue-200 text-center">
-                <div class="bg-blue-500 text-white p-3 rounded-full mb-3 inline-block">
-                  <i class="fas fa-list text-xl"></i>
-                </div>
-                <div class="font-semibold text-gray-700 text-sm mb-1">মোট প্রশ্ন</div>
-                <div class="text-2xl font-bold text-blue-600">${mcqNumber}</div>
-              </div>
-              <div class="bg-white p-4 rounded-lg border border-green-200 text-center">
-                <div class="bg-green-500 text-white p-3 rounded-full mb-3 inline-block">
-                  <i class="fas fa-hourglass-half text-xl"></i>
-                </div>
-                <div class="font-semibold text-gray-700 text-sm mb-1">সময়সীমা</div>
-                <div class="text-2xl font-bold text-green-600">${timeLimit} মিনিট</div>
-              </div>
-              <div class="bg-white p-4 rounded-lg border border-yellow-200 text-center">
-                <div class="bg-yellow-500 text-white p-3 rounded-full mb-3 inline-block">
-                  <i class="fas fa-star text-xl"></i>
-                </div>
-                <div class="font-semibold text-gray-700 text-sm mb-1">প্রশ্ন প্রতি নাম্বার</div>
-                <div class="text-2xl font-bold text-yellow-600">${marksPerQuestion}</div>
-              </div>
-              <div class="bg-white p-4 rounded-lg border border-red-200 text-center">
-                <div class="bg-red-500 text-white p-3 rounded-full mb-3 inline-block">
-                  <i class="fas fa-exclamation-triangle text-xl"></i>
-                </div>
-                <div class="font-semibold text-gray-700 text-sm mb-1">নেগেটিভ মার্কিং</div>
-                <div class="text-2xl font-bold text-red-600">${negativeMarkingValue > 0 ? negativeMarkingValue : "বন্ধ"}</div>
-              </div>
-            </div>
-          </div>
-        `;
-        const timerDisplay = document.getElementById("timer");
-        let timeRemaining = timeLimit * 60;
-        if (timer) clearInterval(timer);
-        timer = setInterval(() => {
-          const minutes = Math.floor(timeRemaining / 60);
-          const seconds = timeRemaining % 60;
-          timerDisplay.textContent = `অবশিষ্ট সময়: ${minutes}মি ${seconds}সে`;
-          timeRemaining--;
-          if (timeRemaining < 0) {
-            clearInterval(timer);
-            timerDisplay.textContent = "সময় শেষ!";
-            alert("সময় শেষ! পরীক্ষা স্বয়ংক্রিয়ভাবে জমা দেওয়া হবে।");
-            document.getElementById("submit-test").click();
-          }
-        }, 1000);
-      }
-      document
-        .getElementById("view-history")
-        .addEventListener("click", function () {
-          showSection("history-section");
-          loadHistory();
-        });
-      document
-        .getElementById("back-to-home")
-        .addEventListener("click", function () {
-          showSection("configuration-section");
-        });
-      showSection("configuration-section");
-
-      document
-        .getElementById("test-form")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
-          testName = document.getElementById("test-name").value;
-          mcqNumber = parseInt(document.getElementById("mcq-number").value);
-          timeLimit = parseInt(document.getElementById("time-limit").value);
-          marksPerQuestion = parseFloat(
-            document.getElementById("marks-per-question").value,
-          );
-          negativeMarkingValue = parseFloat(
-            document.getElementById("negative-marking-value").value,
-          );
-
-          showSection("test-section");
-
-          const testDetails = document.getElementById("test-details");
-          testDetails.innerHTML = `
-            <div class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-6 md:p-8 rounded-2xl shadow-2xl border border-white/50">
-              <h3 class="text-2xl md:text-3xl font-bold text-blue-600 mb-6 font-hind text-center flex items-center justify-center gap-3">
-                <i class="fas fa-clipboard-list text-3xl text-blue-600" aria-hidden="true"></i>
-                ${testName}
-                <i class="fas fa-clipboard-list text-3xl text-blue-600" aria-hidden="true"></i>
-              </h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                <div class="group bg-gradient-to-br from-white to-blue-50 p-4 md:p-6 rounded-xl shadow-lg border border-blue-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                  <div class="flex flex-col items-center text-center">
-                    <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-3 rounded-full mb-3 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <i class="fas fa-list text-white text-xl md:text-2xl" aria-hidden="true"></i>
-                    </div>
-                    <div class="font-semibold text-gray-700 font-hind text-sm md:text-base mb-1">মোট প্রশ্ন</div>
-                    <div class="text-2xl md:text-3xl font-bold text-blue-600">${mcqNumber}</div>
-                  </div>
-                </div>
-                <div class="group bg-gradient-to-br from-white to-green-50 p-4 md:p-6 rounded-xl shadow-lg border border-green-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                  <div class="flex flex-col items-center text-center">
-                    <div class="bg-gradient-to-br from-green-500 to-green-600 p-3 rounded-full mb-3 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <i class="fas fa-hourglass-half text-white text-xl md:text-2xl" aria-hidden="true"></i>
-                    </div>
-                    <div class="font-semibold text-gray-700 font-hind text-sm md:text-base mb-1">সময়সীমা</div>
-                    <div class="text-2xl md:text-3xl font-bold text-green-600">${timeLimit} মিনিট</div>
-                  </div>
-                </div>
-                <div class="group bg-gradient-to-br from-white to-yellow-50 p-4 md:p-6 rounded-xl shadow-lg border border-yellow-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                  <div class="flex flex-col items-center text-center">
-                    <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 p-3 rounded-full mb-3 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <i class="fas fa-star text-white text-xl md:text-2xl" aria-hidden="true"></i>
-                    </div>
-                    <div class="font-semibold text-gray-700 font-hind text-sm md:text-base mb-1">প্রশ্ন প্রতি নাম্বার</div>
-                    <div class="text-2xl md:text-3xl font-bold text-yellow-600">${marksPerQuestion}</div>
-                  </div>
-                </div>
-                <div class="group bg-gradient-to-br from-white to-red-50 p-4 md:p-6 rounded-xl shadow-lg border border-red-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                  <div class="flex flex-col items-center text-center">
-                    <div class="bg-gradient-to-br from-red-500 to-red-600 p-3 rounded-full mb-3 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <i class="fas fa-exclamation-triangle text-white text-xl md:text-2xl" aria-hidden="true"></i>
-                    </div>
-                    <div class="font-semibold text-gray-700 font-hind text-sm md:text-base mb-1">নেগেটিভ মার্কিং</div>
-                    <div class="text-2xl md:text-3xl font-bold text-red-600">${negativeMarkingValue > 0 ? negativeMarkingValue : "বন্ধ"}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        `;
-          const timerDisplay = document.getElementById("timer");
-          let timeRemaining = timeLimit * 60;
-          timer = setInterval(() => {
-            const minutes = Math.floor(timeRemaining / 60);
-            const seconds = timeRemaining % 60;
-            timerDisplay.textContent = `অবশিষ্ট সময়: ${minutes}মি ${seconds}সে`;
-            timeRemaining--;
-
-            if (timeRemaining < 0) {
-              clearInterval(timer);
-              timerDisplay.textContent = "সময় শেষ!";
-              alert("সময় শেষ! পরীক্ষা স্বয়ংক্রিয়ভাবে জমা দেওয়া হবে।");
-              document.getElementById("submit-test").click();
-            }
-          }, 1000);
-
-          const mcqContainer = document.getElementById("mcq-container");
-          mcqContainer.innerHTML = "";
-          for (let i = 1; i <= mcqNumber; i++) {
-            const mcqDiv = document.createElement("div");
-            mcqDiv.className =
-              "flex flex-col md:flex-row md:items-center justify-between mb-3 sm:mb-4 md:mb-5 gap-2 sm:gap-2.5 md:gap-4 p-3 sm:p-4 md:p-5 border border-white/30 rounded-xl bg-white/80 glass-morphism shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5";
-            mcqDiv.innerHTML = `
-                    <p class="flex-1 md:mr-4 font-semibold text-gray-700 mb-2 md:mb-0 min-w-0 font-hind text-sm sm:text-base"><i class="fas fa-question-circle text-blue-600 mr-2"></i> প্রশ্ন ${i}:</p>
-                    <div class="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap items-center">
-                        <input type="radio" name="q${i}" value="A" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0">
-                        <input type="radio" name="q${i}" value="B" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0">
-                        <input type="radio" name="q${i}" value="C" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0">
-                        <input type="radio" name="q${i}" value="D" class="radio-custom w-5 h-5 sm:w-6 sm:h-6 relative m-1 sm:m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[20px] sm:min-w-[24px] flex-shrink-0">
-                    </div>
-                `;
-            mcqContainer.appendChild(mcqDiv);
-          }
-        });
-
-      document
-        .getElementById("submit-test")
-        .addEventListener("click", function () {
-          showSection("correct-answer-section");
-
-          const correctAnswerContainer = document.getElementById(
-            "correct-answer-container",
-          );
-          correctAnswerContainer.innerHTML = "";
-          for (let i = 1; i <= mcqNumber; i++) {
-            const answerDiv = document.createElement("div");
-            answerDiv.className =
-              "flex flex-col md:flex-row md:items-center justify-between mb-4 md:mb-5 gap-2.5 md:gap-4 p-4 md:p-5 border border-white/30 rounded-xl bg-white/80 glass-morphism shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5";
-            answerDiv.innerHTML = `
-                    <p class="flex-1 md:mr-4 font-semibold text-gray-700 mb-2.5 md:mb-0 min-w-0 font-hind"><i class="fas fa-check-circle text-blue-600 mr-2"></i> প্রশ্ন ${i} এর সঠিক উত্তর:</p>
-                    <div class="flex gap-2 flex-wrap md:flex-nowrap items-center">
-                        <input type="radio" name="correct-q${i}" value="A" class="radio-custom w-6 h-6 relative m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[24px] flex-shrink-0" ${retakeData && retakeData.correctAns[i - 1] === "A" ? "checked" : ""}>
-                        <input type="radio" name="correct-q${i}" value="B" class="radio-custom w-6 h-6 relative m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[24px] flex-shrink-0" ${retakeData && retakeData.correctAns[i - 1] === "B" ? "checked" : ""}>
-                        <input type="radio" name="correct-q${i}" value="C" class="radio-custom w-6 h-6 relative m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[24px] flex-shrink-0" ${retakeData && retakeData.correctAns[i - 1] === "C" ? "checked" : ""}>
-                        <input type="radio" name="correct-q${i}" value="D" class="radio-custom w-6 h-6 relative m-2 cursor-pointer appearance-none border-2 border-gray-300 rounded-full bg-white transition-all duration-300 hover:border-blue-600 hover:scale-105 focus:outline-2 focus:outline-blue-600 focus:outline-offset-2 min-w-[24px] flex-shrink-0" ${retakeData && retakeData.correctAns[i - 1] === "D" ? "checked" : ""}>
-                    </div>
-                `;
-            correctAnswerContainer.appendChild(answerDiv);
-          }
-        });
-
-      document
-        .getElementById("submit-correct-answers")
-        .addEventListener("click", function () {
-          showSection("result-section");
-
-          const resultContainer = document.getElementById("result-container");
-          let correctCount = 0;
-          let incorrectCount = 0;
-          let skippedCount = 0;
-
-          for (let i = 1; i <= mcqNumber; i++) {
-            const userAnswer = document.querySelector(
-              `input[name="q${i}"]:checked`,
-            );
-            const correctAnswer = document.querySelector(
-              `input[name="correct-q${i}"]:checked`,
-            );
-            if (!userAnswer) {
-              skippedCount++;
-            } else if (userAnswer && correctAnswer) {
-              if (userAnswer.value === correctAnswer.value) {
-                correctCount++;
+          if (exportBtn) {
+            exportBtn.addEventListener("click", () => {
+              if (window.examAppInstance) {
+                window.examAppInstance.exportData();
               } else {
-                incorrectCount++;
+                console.error("Exam app instance not found");
               }
-            }
+            });
           }
 
-          const negativeMarking = negativeMarkingValue;
-          const totalScore =
-            correctCount * marksPerQuestion - incorrectCount * negativeMarking;
-
-          resultContainer.innerHTML = `
-            <div class="bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-500 p-4 md:p-6 rounded-xl shadow-xl">
-                <h3 class="text-gray-800 font-bold mb-6 font-hind text-xl md:text-2xl text-center"><i class="fas fa-chart-pie text-blue-600 mr-2"></i> পরীক্ষার ফলাফল</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-6">
-                    <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
-                        <i class="fas fa-list text-blue-600 text-xl sm:text-3xl mb-1 sm:mb-2 block"></i>
-                        <div class="text-lg sm:text-2xl font-bold text-blue-600">${mcqNumber}</div>
-                        <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">মোট প্রশ্ন</div>
-                    </div>
-                    <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
-                        <i class="fas fa-check-circle text-green-600 text-xl sm:text-3xl mb-1 sm:mb-2 block"></i>
-                        <div class="text-lg sm:text-2xl font-bold text-green-600">${correctCount}</div>
-                        <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">সঠিক উত্তর</div>
-                    </div>
-                    <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
-                        <i class="fas fa-times-circle text-red-600 text-xl sm:text-3xl mb-1 sm:mb-2 block"></i>
-                        <div class="text-lg sm:text-2xl font-bold text-red-600">${incorrectCount}</div>
-                        <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">ভুল উত্তর</div>
-                    </div>
-                    <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
-                        <i class="fas fa-minus-circle text-orange-600 text-xl sm:text-3xl mb-1 sm:mb-2 block"></i>
-                        <div class="text-lg sm:text-2xl font-bold text-orange-600">${skippedCount}</div>
-                        <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">বাদ দেওয়া প্রশ্ন</div>
-                    </div>
-                    <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
-                        <i class="fas fa-exclamation-triangle text-purple-600 text-xl sm:text-3xl mb-1 sm:mb-2 block"></i>
-                        <div class="text-lg sm:text-2xl font-bold text-purple-600">${(
-                          incorrectCount * negativeMarking
-                        ).toFixed(2)}</div>
-                        <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">নেগেটিভ মার্কিং</div>
-                    </div>
-                    <div class="bg-white/90 p-2 sm:p-4 rounded-lg shadow-md text-center">
-                        <i class="fas fa-trophy text-yellow-600 text-xl sm:text-3xl mb-1 sm:mb-2 block"></i>
-                        <div class="text-lg sm:text-2xl font-bold text-yellow-600">${totalScore.toFixed(
-                          2,
-                        )}</div>
-                        <div class="font-semibold text-gray-700 font-hind text-xs sm:text-sm">মোট স্কোর</div>
-                    </div>
-                </div>
-                <div class="bg-gradient-to-r from-orange-100 to-orange-200 border-2 border-orange-300 p-3 sm:p-4 rounded-xl text-center">
-                    <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-orange-700 mb-2">
-                        <i class="fas fa-percentage mr-2"></i> ${(
-                          (correctCount / mcqNumber) *
-                          100
-                        ).toFixed(2)}%
-                    </div>
-                    <div class="text-base sm:text-lg font-semibold text-orange-800 font-hind">সার্বিক শতাংশ</div>
-                </div>
-            </div>
-        `;
-          document
-            .getElementById("print-result")
-            .addEventListener("click", function () {
-              window.print();
-            });
-          let userAnswers = [];
-          let correctAnswers = [];
-          for (let i = 1; i <= mcqNumber; i++) {
-            const userAns = document.querySelector(
-              `input[name="q${i}"]:checked`,
-            );
-            userAnswers.push(userAns ? userAns.value : "");
-            const correctAns = document.querySelector(
-              `input[name="correct-q${i}"]:checked`,
-            );
-            correctAnswers.push(correctAns ? correctAns.value : "");
-          }
-          document
-            .getElementById("save-test")
-            .addEventListener("click", function () {
-              let userAnswers = [];
-              let correctAnswers = [];
-              for (let i = 1; i <= mcqNumber; i++) {
-                const userAns = document.querySelector(
-                  `input[name="q${i}"]:checked`,
-                );
-                userAnswers.push(userAns ? userAns.value : "");
-                const correctAns = document.querySelector(
-                  `input[name="correct-q${i}"]:checked`,
-                );
-                correctAnswers.push(correctAns ? correctAns.value : "");
+          if (importBtn) {
+            importBtn.addEventListener("click", () => {
+              if (window.examAppInstance) {
+                window.examAppInstance.importData();
+              } else {
+                console.error("Exam app instance not found");
               }
-              saveTest(
-                testName,
-                mcqNumber,
-                marksPerQuestion,
-                negativeMarkingValue,
-                timeLimit,
-                userAnswers,
-                correctAnswers,
-                new Date().toISOString(),
-              );
-              alert("পরীক্ষা সেভ হয়েছে!");
             });
-        });
+          }
+        }, 100);
+      });
     </script>
   </body>
 </html>
